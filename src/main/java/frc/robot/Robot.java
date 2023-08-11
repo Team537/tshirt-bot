@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.Constants.DriveConstants;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -38,27 +39,48 @@ public class Robot extends LoggedRobot {
    */
   @Override
   public void robotInit() {
-    Logger.getInstance().recordMetadata("ProjectName", "MyProject"); // Set a metadata value
+    Logger.getInstance().recordMetadata("ProjectName", "TSHIRT-BOT"); // Set a metadata value
+    Logger.getInstance().recordMetadata("BuildDate", BuildConstants.BUILD_DATE);
+    Logger.getInstance().recordMetadata("GitSHA", BuildConstants.GIT_SHA);
+    Logger.getInstance().recordMetadata("GitDate", BuildConstants.GIT_DATE);
+    Logger.getInstance().recordMetadata("GitBranch", BuildConstants.GIT_BRANCH);
+    switch (BuildConstants.DIRTY) {
+      case 0:
+        Logger.getInstance().recordMetadata("GitDirty", "All changes committed");
+        break;
+      case 1:
+        Logger.getInstance().recordMetadata("GitDirty", "Uncomitted changes");
+        break;
+      default:
+        Logger.getInstance().recordMetadata("GitDirty", "Unknown");
+        break;
+    }
 
-if (isReal()) {
-    Logger.getInstance().addDataReceiver(new WPILOGWriter("/media/sda1/")); // Log to a USB stick
-    Logger.getInstance().addDataReceiver(new NT4Publisher()); // Publish data to NetworkTables
-    new PowerDistribution(1, ModuleType.kRev); // Enables power distribution logging
-} else {
-    setUseTiming(false); // Run as fast as possible
-    String logPath = LogFileUtil.findReplayLog(); // Pull the replay log from AdvantageScope (or prompt the user)
-    Logger.getInstance().setReplaySource(new WPILOGReader(logPath)); // Read replay log
-    Logger.getInstance().addDataReceiver(new WPILOGWriter(LogFileUtil.addPathSuffix(logPath, "_sim"))); // Save outputs to a new log
-}
+    switch (DriveConstants.currentMode) {
+      // Running on a real robot, log to a USB stick
+      case REAL:
+      Logger.getInstance().addDataReceiver(new WPILOGWriter("/media/sda1/"));
+      Logger.getInstance().addDataReceiver(new NT4Publisher());
+        break;
 
-// Logger.getInstance().disableDeterministicTimestamps() // See "Deterministic Timestamps" in the "Understanding Data Flow" page
-Logger.getInstance().start(); // Start logging! No more data receivers, replay sources, or metadata values may be added.
-  //   try {
-  //     Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(RedBallDriveOut);
-  //     RedBallDriveOutTrajectory = TrajectoryUtil.fromPathweaverJson(trajectoryPath);
-  //  } catch (IOException ex) {
-  //     DriverStation.reportError("Unable to open trajectory: " + RedBallDriveOut, ex.getStackTrace());
-  //  }
+      // Running a physics simulator, log to local folder
+      case SIM:
+      Logger.getInstance().addDataReceiver(new WPILOGWriter(""));
+      Logger.getInstance().addDataReceiver(new NT4Publisher());
+        break;
+
+      // Replaying a log, set up replay source
+      case REPLAY:
+        setUseTiming(false); // Run as fast as possible
+        String logPath = LogFileUtil.findReplayLog();
+        Logger.getInstance().setReplaySource(new WPILOGReader(logPath));
+        Logger.getInstance().addDataReceiver(new WPILOGWriter(LogFileUtil.addPathSuffix(logPath, "_sim")));
+        break;
+    }
+
+
+       Logger.getInstance().start(); // Start logging! No more data receivers, replay sources, or metadata values may be added.
+
 
     
     

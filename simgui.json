@@ -28,6 +28,7 @@
       "/FMSInfo": "FMSInfo",
       "/SmartDashboard/Arm": "Subsystem",
       "/SmartDashboard/DriveSubsystem": "Subsystem",
+      "/SmartDashboard/Field2d": "Field2d",
       "/SmartDashboard/Reset Solenoid Array": "Command",
       "/SmartDashboard/Scheduler": "Scheduler"
     },

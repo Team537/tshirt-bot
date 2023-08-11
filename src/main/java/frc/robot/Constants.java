@@ -20,6 +20,21 @@ import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
  */
 public final class Constants {
   public static final class DriveConstants {
+    
+
+
+    public static final Mode currentMode = Mode.REPLAY;
+
+    public static enum Mode {
+      /** Running on a real robot. */
+      REAL,
+  
+      /** Running a physics simulator. */
+      SIM,
+  
+      /** Replaying from a log file. */
+      REPLAY
+    }
 
     /*public static final int kFrontLeft = 9;
     public static final int kRearLeft = 3;
@@ -37,6 +52,8 @@ public final class Constants {
     public static final double kTrackwidthMeters = 0.8509;
     public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(
         kTrackwidthMeters);
+
+    public static final double wheelRadius = 0.0762;
 
     public static final int kEncoderCPR = 2048;
     public static final double kWheelDiameterMeters = 0.1524;
