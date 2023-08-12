@@ -39,20 +39,28 @@ public class Robot extends LoggedRobot {
    */
   @Override
   public void robotInit() {
-    Logger.getInstance().recordMetadata("ProjectName", "TSHIRT-BOT"); // Set a metadata value
+    Logger.getInstance().recordMetadata("ProjectName", BuildConstants.MAVEN_NAME); // Set a metadata value
+    SmartDashboard.putString("ProjectName", BuildConstants.MAVEN_NAME); // Set a metadata value
     Logger.getInstance().recordMetadata("BuildDate", BuildConstants.BUILD_DATE);
+    SmartDashboard.putString("BuildDate", BuildConstants.BUILD_DATE);
     Logger.getInstance().recordMetadata("GitSHA", BuildConstants.GIT_SHA);
+    SmartDashboard.putString("GitSHA", BuildConstants.GIT_SHA);
     Logger.getInstance().recordMetadata("GitDate", BuildConstants.GIT_DATE);
+    SmartDashboard.putString("GitDate", BuildConstants.GIT_DATE);
     Logger.getInstance().recordMetadata("GitBranch", BuildConstants.GIT_BRANCH);
+    SmartDashboard.putString("GitBranch", BuildConstants.GIT_BRANCH);
     switch (BuildConstants.DIRTY) {
       case 0:
         Logger.getInstance().recordMetadata("GitDirty", "All changes committed");
+        SmartDashboard.putString("GitDirty", "All changes committed");
         break;
       case 1:
         Logger.getInstance().recordMetadata("GitDirty", "Uncomitted changes");
+        SmartDashboard.putString("GitDirty", "Uncomitted changes");
         break;
       default:
         Logger.getInstance().recordMetadata("GitDirty", "Unknown");
+        SmartDashboard.putString("GitDirty", "Unknown");
         break;
     }
 
