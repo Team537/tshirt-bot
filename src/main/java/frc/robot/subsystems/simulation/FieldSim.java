@@ -5,18 +5,13 @@
 package frc.robot.subsystems.simulation;
 
 import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.wpilibj.RobotBase;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 import frc.robot.subsystems.drive.DifferentialDriveSubsystem;
-
-
-import java.util.Map;
 
 /**
  * 

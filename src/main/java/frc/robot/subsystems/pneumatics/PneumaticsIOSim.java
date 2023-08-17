@@ -1,7 +1,7 @@
 package frc.robot.subsystems.pneumatics;
 
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
-import edu.wpi.first.wpilibj.Solenoid;
+
 import edu.wpi.first.wpilibj.simulation.SolenoidSim;
 import frc.robot.Constants.PneumaticConstants;
 

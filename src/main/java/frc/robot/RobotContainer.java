@@ -7,14 +7,9 @@ package frc.robot;
 
 
 
-import org.littletonrobotics.junction.Logger;
-
-import edu.wpi.first.math.filter.SlewRateLimiter;
-
 import edu.wpi.first.wpilibj.XboxController;
 
 import edu.wpi.first.wpilibj.XboxController.Button;
-import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
@@ -58,8 +53,7 @@ public class RobotContainer {
   private final DifferentialDriveSubsystem m_robotDrive;
   private final FieldSim m_fieldSim;
   private final Pneumatics m_Pneumatics;
-  private final SlewRateLimiter Left = new SlewRateLimiter(3);
-  private final SlewRateLimiter Right = new SlewRateLimiter(3);
+ 
 
   Command shootshirt;
   
@@ -145,14 +139,7 @@ public class RobotContainer {
    * passing it to a
    * {@link JoystickButton}.
    */
-  private void configureButtonBindings() {
-     
-
-      // Set the default drive command to split-stick arcade drive
-      // A split-stick arcade command, with forward/backward controlled by the left
-      // hand, and turning controlled by the right.
-     
-  }
+  
   
 
   
