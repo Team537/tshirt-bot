@@ -7,7 +7,7 @@ package frc.robot;
 
 
 
-import edu.wpi.first.math.filter.SlewRateLimiter;
+
 
 import edu.wpi.first.wpilibj.XboxController;
 
@@ -49,8 +49,7 @@ public class RobotContainer {
   private final DriveSubsystem m_robotDrive = new DriveSubsystem();
   
   private final Pneumatics m_Pneumatics = new Pneumatics();
-  private final SlewRateLimiter Left = new SlewRateLimiter(3);
-  private final SlewRateLimiter Right = new SlewRateLimiter(3);
+ 
 
   
   Command shootshirt = new ShootCommand(m_Pneumatics);
@@ -105,14 +104,7 @@ public class RobotContainer {
    * passing it to a
    * {@link JoystickButton}.
    */
-  private void configureButtonBindings() {
-     
-
-      // Set the default drive command to split-stick arcade drive
-      // A split-stick arcade command, with forward/backward controlled by the left
-      // hand, and turning controlled by the right.
-     
-  }
+  
   
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
