@@ -4,10 +4,11 @@ import edu.wpi.first.wpilibj.PneumaticHub;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
 import frc.robot.Constants.PneumaticConstants;
+import frc.robot.subsystems.pneumatics.PneumaticsIO;
 
-public class PneumaticsIOReal implements PneumaticsIO{
+public class PneumaticsIOReal implements PneumaticsIO {
     PneumaticHub pneumaticHub = new PneumaticHub(PneumaticConstants.MODULE_NUMBER); 
-     
+
 
     
     
