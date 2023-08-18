@@ -1,0 +1,10 @@
+{kFrontLeft: 11, kRearLeft: 13, kFrontRight: 1, kRearRight: 3, kTrackwidthMeters: 0.8509,
+  wheelRadius: 0.0762, kEncoderCPR: 2048, kWheelDiameterMeters: 0.1524, ksVolts: 0.305,
+  kvVoltSecondsPerMeter: 2.29, kaVoltSecondsSquaredPerMeter: 0.0131, kPDriveVel: 8.5,
+  kTurnP: 8.5, kTurnI: 0, kTurnD: 0, kTurnToleranceDeg: 4, kTurnRateToleranceDegPerS: 1,
+  MODULE_NUMBER: 1, T_SHIRT_SOLENOID_1_CHANNEL: 0, T_SHIRT_SOLENOID_2_CHANNEL: 1,
+  T_SHIRT_SOLENOID_3_CHANNEL: 2, T_SHIRT_SOLENOID_4_CHANNEL: 3, T_SHIRT_SOLENOID_5_CHANNEL: 4,
+  T_SHIRT_SOLENOID_6_CHANNEL: 5, T_SHIRT_SOLENOID_7_CHANNEL: 6, T_SHIRT_SOLENOID_8_CHANNEL: 7,
+  SAFTEY_DELAY: 1, kDriverControllerPort: 0, kF: 0.0, kP: 0.0, kI: 0.0, kD: 0.0, kTimeoutMs: 10,
+  kPIDLoopIdx: 0, kSlotIdx: 0, targetMeters: 2 * (6 * 2048 * 0.4787787204060999),
+  smoothing: 4, SECONDS: 1}

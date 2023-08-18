@@ -7,6 +7,7 @@ package frc.robot;
 
 
 
+import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.XboxController;
 
 import edu.wpi.first.wpilibj.XboxController.Button;
@@ -25,6 +26,7 @@ import frc.robot.subsystems.simulation.FieldSim;
 import utils.ExtendedXboxController;
 import frc.robot.commands.ShootCommand;
 
+import frc.robot.config.YAMLDataHolder;
 import edu.wpi.first.wpilibj2.command.Command;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -52,6 +54,7 @@ public class RobotContainer {
   private final DifferentialDriveSubsystem m_robotDrive;
   private final FieldSim m_fieldSim;
   private final Pneumatics m_Pneumatics;
+  private YAMLDataHolder m_constants = new YAMLDataHolder();
  
 
   Command shootshirt;
@@ -74,7 +77,19 @@ public class RobotContainer {
    */
   public RobotContainer() {
     
+   
+
+   
+    
+     SmartDashboard.putNumber("kFrontLeft",(Integer) m_constants.getProperty("kFrontLeft"));
+     SmartDashboard.putNumber("kFrontRight",(Integer) m_constants.getProperty("kFrontRight"));
+     SmartDashboard.putNumber("kRearLeft",(Integer) m_constants.getProperty("kRearLeft"));
+     SmartDashboard.putNumber("kRearRight",(Integer) m_constants.getProperty("kRearRight"));
+     
+      
     switch (DriveConstants.currentMode) {
+
+      
       // Real robot, instantiate hardware IO implementations
       case REAL:
         m_robotDrive = new DifferentialDriveSubsystem(new DriveIOCim());
@@ -106,6 +121,8 @@ public class RobotContainer {
         shootshirt = new ShootCommand(m_Pneumatics);
        
         break;
+
+         
     }
  
 
@@ -160,5 +177,22 @@ public class RobotContainer {
     }
 
     m_fieldSim.periodic();
+
+    
+
+    int frontLeft = (int)SmartDashboard.getNumber("kFrontLeft", (Integer) m_constants.getProperty("kFrontLeft"));
+    int frontRight = (int)SmartDashboard.getNumber("kFrontRight", (Integer) m_constants.getProperty("kFrontRight"));
+    int rearLeft = (int)SmartDashboard.getNumber("kRearLeft", (Integer) m_constants.getProperty("kRearLeft"));
+    int rearRight = (int)SmartDashboard.getNumber("kRearRight", (Integer) m_constants.getProperty("kRearRight"));
+
+    
+    
+    m_constants.setProperty("kFrontLeft", frontLeft);
+    m_constants.setProperty("kFrontRight", frontRight);
+    m_constants.setProperty("kRearLeft", rearLeft);
+    m_constants.setProperty("kRearRight", rearRight);
+
+    m_constants.saveData();
+    
   }
 }
