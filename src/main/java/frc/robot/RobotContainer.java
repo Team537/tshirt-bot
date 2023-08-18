@@ -7,27 +7,28 @@ package frc.robot;
 
 
 
-
-
 import edu.wpi.first.wpilibj.XboxController;
 
 import edu.wpi.first.wpilibj.XboxController.Button;
-
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
+import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
-
-import frc.robot.subsystems.DriveSubsystem;
-import frc.robot.subsystems.Pneumatics;
-
-import frc.robot.commands.ArcadeDriveCommand;
-
+import frc.robot.subsystems.drive.DifferentialDriveSubsystem;
+import frc.robot.subsystems.drive.DriveIO;
+import frc.robot.subsystems.drive.DriveIOCim;
+import frc.robot.subsystems.drive.DriveIOSim;
+import frc.robot.subsystems.pneumatics.Pneumatics;
+import frc.robot.subsystems.pneumatics.PneumaticsIO;
+import frc.robot.subsystems.pneumatics.PneumaticsIOReal;
+import frc.robot.subsystems.pneumatics.PneumaticsIOSim;
+import frc.robot.subsystems.simulation.FieldSim;
+import utils.ExtendedXboxController;
 import frc.robot.commands.ShootCommand;
 
 import edu.wpi.first.wpilibj2.command.Command;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 
@@ -46,16 +47,18 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
  */
 public class RobotContainer {
   // The robot's subsystems
-  private final DriveSubsystem m_robotDrive = new DriveSubsystem();
+  // private final DriveSubsystem m_robotDrive = new DriveSubsystem();
   
-  private final Pneumatics m_Pneumatics = new Pneumatics();
+  private final DifferentialDriveSubsystem m_robotDrive;
+  private final FieldSim m_fieldSim;
+  private final Pneumatics m_Pneumatics;
  
 
+  Command shootshirt;
   
-  Command shootshirt = new ShootCommand(m_Pneumatics);
   // The driver's controller
-  XboxController m_driverController = new XboxController(OIConstants.kDriverControllerPort);
-  XboxController m_driverController2 = new XboxController(OIConstants.kDriverControllerPort);
+  ExtendedXboxController m_driverController = new ExtendedXboxController(OIConstants.kDriverControllerPort);
+  ExtendedXboxController m_driverController2 = new ExtendedXboxController(OIConstants.kDriverControllerPort);
 
   
 
@@ -71,7 +74,39 @@ public class RobotContainer {
    */
   public RobotContainer() {
     
-    
+    switch (DriveConstants.currentMode) {
+      // Real robot, instantiate hardware IO implementations
+      case REAL:
+        m_robotDrive = new DifferentialDriveSubsystem(new DriveIOCim());
+        m_fieldSim = new FieldSim(m_robotDrive);
+        m_Pneumatics = new Pneumatics(new PneumaticsIOReal(),m_driverController);
+        shootshirt = new ShootCommand(m_Pneumatics);
+       
+       
+        // drive = new Drive(new DriveIOFalcon500());
+        // flywheel = new Flywheel(new FlywheelIOFalcon500());
+        break;
+
+      // Sim robot, instantiate physics sim IO implementations
+      case SIM:
+      m_robotDrive  = new DifferentialDriveSubsystem(new DriveIOSim());
+      m_fieldSim = new FieldSim(m_robotDrive);
+      m_Pneumatics = new Pneumatics(new PneumaticsIOSim(),m_driverController);
+      shootshirt = new ShootCommand(m_Pneumatics);
+      
+        
+        break;
+
+      // Replayed robot, disable IO implementations
+      default:
+      m_robotDrive  =  new DifferentialDriveSubsystem(new DriveIO() {
+        });
+        m_Pneumatics = new Pneumatics(new PneumaticsIO(){},m_driverController);
+        m_fieldSim = new FieldSim(m_robotDrive);
+        shootshirt = new ShootCommand(m_Pneumatics);
+       
+        break;
+    }
  
 
     SmartDashboard.putData("Reset Solenoid Array",new InstantCommand(m_Pneumatics::ResetShootArray, m_Pneumatics));
@@ -87,11 +122,10 @@ public class RobotContainer {
    
         m_robotDrive.setDefaultCommand(
       
-          new ArcadeDriveCommand(
-                          m_robotDrive,
-                          () -> -m_driverController.getLeftY(),
-                          () -> -m_driverController.getLeftX())
-          );
+             new RunCommand(() -> m_robotDrive.driveArcade(-m_driverController.getLeftY(), -m_driverController.getLeftX()), m_robotDrive));
+        
+             
+
   }
 
 
@@ -106,6 +140,8 @@ public class RobotContainer {
    */
   
   
+
+  
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
@@ -113,43 +149,16 @@ public class RobotContainer {
    */
  
 
-  public int[] update_trigger_values(){
-    int currentRightTriggerState = rightTriggerState;
-    int currentLeftTriggerState = leftTriggerState;
-    // Right Trigger
-    if (m_driverController.getRightTriggerAxis() > 0.5){ // checks for press down past halfway
-      // On press, it'll go to state one.
-      // On hold, it'll go to state two, cause it'll be one when the loop checks again.
-      if(currentRightTriggerState < 2){
-        currentRightTriggerState += 1;
-      }
-    }
-    else{
-      currentRightTriggerState = 0;
-    }
-
-    // Left Trigger
-    if (m_driverController.getLeftTriggerAxis() > 0.5){ // checks for press down past halfway
-      // On press, it'll go to state one.
-      // On hold, it'll go to state two, cause it'll be one when the loop checks again.
-      if(currentLeftTriggerState < 2){
-        currentLeftTriggerState += 1;
-      }
-    }
-    else{
-      currentLeftTriggerState = 0;
-    }
-    return new int[] {currentLeftTriggerState, currentRightTriggerState};
-  }
+ 
 
   public void periodic(){
     //Updates the trigger values
-    int[] updatedTriggerValues = update_trigger_values();
-    leftTriggerState = updatedTriggerValues[0];
-    rightTriggerState = updatedTriggerValues[1];
+    m_driverController.periodic();
     // Checks if it can shoot
-    if (m_Pneumatics.canShoot(leftTriggerState, rightTriggerState)){
+    if (m_Pneumatics.canShoot()){
       shootshirt.schedule();
     }
+
+    m_fieldSim.periodic();
   }
 }

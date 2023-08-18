@@ -4,9 +4,17 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.TimedRobot;
+
+import org.littletonrobotics.junction.LogFileUtil;
+import org.littletonrobotics.junction.LoggedRobot;
+import org.littletonrobotics.junction.Logger;
+import org.littletonrobotics.junction.networktables.NT4Publisher;
+import org.littletonrobotics.junction.wpilog.WPILOGReader;
+import org.littletonrobotics.junction.wpilog.WPILOGWriter;
+
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.Constants.DriveConstants;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -14,7 +22,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
  * the package after creating this project, you must also update the build.gradle file in the
  * project.
  */
-public class Robot extends TimedRobot {
+public class Robot extends LoggedRobot {
   
  
 
@@ -28,12 +36,56 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-  //   try {
-  //     Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(RedBallDriveOut);
-  //     RedBallDriveOutTrajectory = TrajectoryUtil.fromPathweaverJson(trajectoryPath);
-  //  } catch (IOException ex) {
-  //     DriverStation.reportError("Unable to open trajectory: " + RedBallDriveOut, ex.getStackTrace());
-  //  }
+    Logger.getInstance().recordMetadata("ProjectName", BuildConstants.MAVEN_NAME); // Set a metadata value
+    SmartDashboard.putString("ProjectName", BuildConstants.MAVEN_NAME); // Set a metadata value
+    Logger.getInstance().recordMetadata("BuildDate", BuildConstants.BUILD_DATE);
+    SmartDashboard.putString("BuildDate", BuildConstants.BUILD_DATE);
+    Logger.getInstance().recordMetadata("GitSHA", BuildConstants.GIT_SHA);
+    SmartDashboard.putString("GitSHA", BuildConstants.GIT_SHA);
+    Logger.getInstance().recordMetadata("GitDate", BuildConstants.GIT_DATE);
+    SmartDashboard.putString("GitDate", BuildConstants.GIT_DATE);
+    Logger.getInstance().recordMetadata("GitBranch", BuildConstants.GIT_BRANCH);
+    SmartDashboard.putString("GitBranch", BuildConstants.GIT_BRANCH);
+    switch (BuildConstants.DIRTY) {
+      case 0:
+        Logger.getInstance().recordMetadata("GitDirty", "All changes committed");
+        SmartDashboard.putString("GitDirty", "All changes committed");
+        break;
+      case 1:
+        Logger.getInstance().recordMetadata("GitDirty", "Uncomitted changes");
+        SmartDashboard.putString("GitDirty", "Uncomitted changes");
+        break;
+      default:
+        Logger.getInstance().recordMetadata("GitDirty", "Unknown");
+        SmartDashboard.putString("GitDirty", "Unknown");
+        break;
+    }
+
+    switch (DriveConstants.currentMode) {
+      // Running on a real robot, log to a USB stick
+      case REAL:
+      Logger.getInstance().addDataReceiver(new WPILOGWriter("/home/lvuser"));
+      Logger.getInstance().addDataReceiver(new NT4Publisher());
+        break;
+
+      // Running a physics simulator, log to local folder
+      case SIM:
+      Logger.getInstance().addDataReceiver(new WPILOGWriter(""));
+      Logger.getInstance().addDataReceiver(new NT4Publisher());
+        break;
+
+      // Replaying a log, set up replay source
+      case REPLAY:
+        setUseTiming(false); // Run as fast as possible
+        String logPath = LogFileUtil.findReplayLog();
+        Logger.getInstance().setReplaySource(new WPILOGReader(logPath));
+        Logger.getInstance().addDataReceiver(new WPILOGWriter(LogFileUtil.addPathSuffix(logPath, "_sim")));
+        break;
+    }
+
+
+       Logger.getInstance().start(); // Start logging! No more data receivers, replay sources, or metadata values may be added.
+
 
     
     
