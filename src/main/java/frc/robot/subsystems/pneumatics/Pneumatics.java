@@ -5,6 +5,7 @@
 package frc.robot.subsystems.pneumatics;
 
 import frc.robot.Constants.PneumaticConstants;
+import utils.ExtendedXboxController;
 
 import org.littletonrobotics.junction.Logger;
 
@@ -21,9 +22,11 @@ public class Pneumatics extends SubsystemBase {
   private final Timer sincePressedTimer = new Timer();
   public boolean safety = false;
   public boolean cooldownReady = true;
+  private ExtendedXboxController m_driverController;
 
-  public Pneumatics(PneumaticsIO pneumaticsIO) {
+  public Pneumatics(PneumaticsIO pneumaticsIO, ExtendedXboxController m_driverController) {
     this.pneumaticsIO = pneumaticsIO;
+    this.m_driverController = m_driverController;
     
   }
 
@@ -35,13 +38,13 @@ public class Pneumatics extends SubsystemBase {
 
 
   
-  public boolean canShoot(int leftTriggerState, int rightTriggerState){
+  public boolean canShoot(){ // int leftTriggerState, int rightTriggerState
      
     // System.out.println(m_driverController.getLeftTriggerAxis() + " " + m_driverController.getRightTriggerAxis());
-    if (leftTriggerState != 0){ //If left trigger is being pressed
+    if (m_driverController.getLeftTriggerHeld()){ //If left trigger is being pressed
      
       // Restarts/starts time when the left trigger pressed down
-      if(leftTriggerState == 1){
+      if(m_driverController.getLeftTriggerPressed()){
         sincePressedTimer.reset();
         sincePressedTimer.start();
       }
@@ -52,14 +55,14 @@ public class Pneumatics extends SubsystemBase {
     
         if (sincePressedTimer.hasElapsed(PneumaticConstants.SAFTEY_DELAY) ){
           safety = true;
-          if(rightTriggerState == 1){
-             System.out.println("FIRE THE MAIN CANNONS");
-          sincePressedTimer.reset();
-          safety = false;
+          if(m_driverController.getRightTriggerHeld()){
+            System.out.println("FIRE THE MAIN CANNONS");
+            sincePressedTimer.reset();
+            safety = false;
           
-          return true;
+            return true;
         
-        } // Checks if the <SAFTEY_DELAY> has passed
+          } // Checks if the <SAFTEY_DELAY> has passed
            // Resets the timer if you shoot, so you have to wait again before firing
            
         }
