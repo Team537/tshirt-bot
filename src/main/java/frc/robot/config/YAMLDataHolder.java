@@ -75,7 +75,7 @@ public class YAMLDataHolder {
      LoggedDashboardNumber T_SHIRT_SOLENOID_7_CHANNEL  = new LoggedDashboardNumber("T_SHIRT_SOLENOID_7_CHANNEL",(Integer) getProperty("T_SHIRT_SOLENOID_7_CHANNEL"));
      LoggedDashboardNumber  T_SHIRT_SOLENOID_8_CHANNEL  = new LoggedDashboardNumber("T_SHIRT_SOLENOID_8_CHANNEL",(Integer) getProperty("T_SHIRT_SOLENOID_8_CHANNEL"));
      LoggedDashboardNumber  SAFETY_DELAY  = new LoggedDashboardNumber("SAFETY_DELAY",(Integer) getProperty("SAFETY_DELAY"));
-     LoggedDashboardNumber kDriverControllerPort  = new LoggedDashboardNumber("kDriverControllerPort",(Integer) getProperty("kDriverControllerPort"));
+    //  LoggedDashboardNumber kDriverControllerPort  = new LoggedDashboardNumber("kDriverControllerPort",(Integer) getProperty("kDriverControllerPort"));
      LoggedDashboardNumber SECONDS = new LoggedDashboardNumber("SECONDS",(Integer) getProperty("SECONDS"));
 
     }
@@ -100,7 +100,7 @@ public class YAMLDataHolder {
         int T_SHIRT_SOLENOID_7_CHANNEL = (int)SmartDashboard.getNumber("T_SHIRT_SOLENOID_7_CHANNEL", (Integer) getProperty("T_SHIRT_SOLENOID_7_CHANNEL"));
         int T_SHIRT_SOLENOID_8_CHANNEL = (int)SmartDashboard.getNumber("T_SHIRT_SOLENOID_8_CHANNEL", (Integer) getProperty("T_SHIRT_SOLENOID_8_CHANNEL"));
         int SAFETY_DELAY = (int)SmartDashboard.getNumber("SAFETY_DELAY", (Integer) getProperty("SAFETY_DELAY"));
-        int driverControllerPort = (int)SmartDashboard.getNumber("kDriverControllerPort", (Integer) getProperty("kDriverControllerPort"));
+        int driverControllerPort = (int)SmartDashboard.getNumber("TunableNumbers/kDriverControllerPort", (Integer) getProperty("kDriverControllerPort"));
         int SECONDS = (int)SmartDashboard.getNumber("SECONDS", (Integer) getProperty("SECONDS"));
     
         

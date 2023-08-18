@@ -23,6 +23,7 @@ import frc.robot.subsystems.pneumatics.PneumaticsIOReal;
 import frc.robot.subsystems.pneumatics.PneumaticsIOSim;
 import frc.robot.subsystems.simulation.FieldSim;
 import utils.ExtendedXboxController;
+import utils.LoggedTunableNumber;
 import frc.robot.commands.ShootCommand;
 
 import frc.robot.config.YAMLDataHolder;
@@ -59,9 +60,11 @@ public class RobotContainer {
   Command shootshirt;
   
   // The driver's controller
-  ExtendedXboxController m_driverController = new ExtendedXboxController((int)m_constants.getProperty("kDriverControllerPort"));
  
 
+  LoggedTunableNumber kDriverControllerPort = new LoggedTunableNumber("kDriverControllerPort", (int)m_constants.getProperty("kDriverControllerPort"));
+ 
+ ExtendedXboxController m_driverController = new ExtendedXboxController((int)kDriverControllerPort.get());
   
 
   JoystickButton rightBumper = new JoystickButton(m_driverController, Button.kRightBumper.value);
@@ -180,6 +183,11 @@ public class RobotContainer {
     
     m_constants.periodic();
     
+
+    if(kDriverControllerPort.hasChanged(hashCode())) {
+      m_driverController = new ExtendedXboxController((int)kDriverControllerPort.get());
+
+    }
     
   }
 }
