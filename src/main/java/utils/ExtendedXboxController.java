@@ -17,33 +17,26 @@ public class ExtendedXboxController extends XboxController {
         int currentRightTriggerState = rightTriggerState;
         int currentLeftTriggerState = leftTriggerState;
         // Right Trigger
-        if (currentRightTriggerState == 0 && super.getRightTriggerAxis() < 0.75 && super.getRightTriggerAxis() > 0.4){ // checks for press down past halfway
-          currentRightTriggerState = 1;
-          
+        if (currentRightTriggerState == 0 && super.getRightTriggerAxis() > 0.5){ // checks for press down past halfway
+          currentRightTriggerState = 1; 
         }
-
-        else if(currentRightTriggerState >=0  && super.getRightTriggerAxis() > 0.75 ){
+        else if(currentRightTriggerState == 1  && super.getRightTriggerAxis() > 0.5 ){
             currentRightTriggerState = 2;
-          } 
-
-        else if (super.getRightTriggerAxis() < 0.4){
+        }
+        else if (super.getRightTriggerAxis() < 0.5){
           currentRightTriggerState = 0;
         }
     
         // Left Trigger
-        if (currentLeftTriggerState == 0 && super.getLeftTriggerAxis() < 0.75 && super.getLeftTriggerAxis() > 0.4){ // checks for press down past halfway
-          
-            currentLeftTriggerState = 1;
-
-         
-
-        }
-       else  if(currentLeftTriggerState >=0 && super.getLeftTriggerAxis() > 0.75){
-            currentLeftTriggerState = 2;
+        if (currentLeftTriggerState == 0 && super.getLeftTriggerAxis() > 0.5){ // checks for press down past halfway
+            currentLeftTriggerState = 1; 
           }
-        else if (super.getLeftTriggerAxis() < 0.4){
-          currentLeftTriggerState = 0;
-        }
+          else if(currentLeftTriggerState == 1  && super.getLeftTriggerAxis() > 0.5 ){
+              currentLeftTriggerState = 2;
+          }
+          else if (super.getLeftTriggerAxis() < 0.5){
+            currentLeftTriggerState = 0;
+          }
         return new int[] {currentLeftTriggerState, currentRightTriggerState};
     }
     

@@ -6,7 +6,8 @@ import edu.wpi.first.wpilibj.Solenoid;
 import frc.robot.Constants.PneumaticConstants;
 
 public class PneumaticsIOReal implements PneumaticsIO{
-    PneumaticHub pneumaticHub = new PneumaticHub(PneumaticConstants.MODULE_NUMBER);  
+    PneumaticHub pneumaticHub = new PneumaticHub(PneumaticConstants.MODULE_NUMBER); 
+     
 
     
     

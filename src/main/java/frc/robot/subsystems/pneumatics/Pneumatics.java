@@ -55,7 +55,7 @@ public class Pneumatics extends SubsystemBase {
     
         if (sincePressedTimer.hasElapsed(PneumaticConstants.SAFTEY_DELAY) ){
           safety = true;
-          if(m_driverController.getRightTriggerHeld()){
+          if(m_driverController.getRightTriggerPressed()){
             System.out.println("FIRE THE MAIN CANNONS");
             sincePressedTimer.reset();
             safety = false;

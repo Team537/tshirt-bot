@@ -15,7 +15,7 @@ import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
 import frc.robot.subsystems.drive.DifferentialDriveSubsystem;
 import frc.robot.subsystems.drive.DriveIO;
-import frc.robot.subsystems.drive.DriveIOFalcon500;
+import frc.robot.subsystems.drive.DriveIOCim;
 import frc.robot.subsystems.drive.DriveIOSim;
 import frc.robot.subsystems.pneumatics.Pneumatics;
 import frc.robot.subsystems.pneumatics.PneumaticsIO;
@@ -77,7 +77,7 @@ public class RobotContainer {
     switch (DriveConstants.currentMode) {
       // Real robot, instantiate hardware IO implementations
       case REAL:
-        m_robotDrive = new DifferentialDriveSubsystem(new DriveIOFalcon500());
+        m_robotDrive = new DifferentialDriveSubsystem(new DriveIOCim());
         m_fieldSim = new FieldSim(m_robotDrive);
         m_Pneumatics = new Pneumatics(new PneumaticsIOReal(),m_driverController);
         shootshirt = new ShootCommand(m_Pneumatics);
