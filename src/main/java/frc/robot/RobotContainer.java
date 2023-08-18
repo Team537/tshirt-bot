@@ -12,8 +12,7 @@ import edu.wpi.first.wpilibj.XboxController;
 
 import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.Constants.DriveConstants;
-import frc.robot.Constants.OIConstants;
+
 import frc.robot.subsystems.drive.DifferentialDriveSubsystem;
 import frc.robot.subsystems.drive.DriveIO;
 import frc.robot.subsystems.drive.DriveIOCim;
@@ -60,8 +59,8 @@ public class RobotContainer {
   Command shootshirt;
   
   // The driver's controller
-  ExtendedXboxController m_driverController = new ExtendedXboxController(OIConstants.kDriverControllerPort);
-  ExtendedXboxController m_driverController2 = new ExtendedXboxController(OIConstants.kDriverControllerPort);
+  ExtendedXboxController m_driverController = new ExtendedXboxController((int)m_constants.getProperty("kDriverControllerPort"));
+ 
 
   
 
@@ -81,17 +80,17 @@ public class RobotContainer {
 
    
     
-     SmartDashboard.putNumber("kFrontLeft",(Integer) m_constants.getProperty("kFrontLeft"));
-     SmartDashboard.putNumber("kFrontRight",(Integer) m_constants.getProperty("kFrontRight"));
-     SmartDashboard.putNumber("kRearLeft",(Integer) m_constants.getProperty("kRearLeft"));
-     SmartDashboard.putNumber("kRearRight",(Integer) m_constants.getProperty("kRearRight"));
+     m_constants.init();
+
+      
+
      
       
-    switch (DriveConstants.currentMode) {
+    switch ((String)m_constants.getProperty("currentMode")) {
 
       
       // Real robot, instantiate hardware IO implementations
-      case REAL:
+      case "REAL":
         m_robotDrive = new DifferentialDriveSubsystem(new DriveIOCim());
         m_fieldSim = new FieldSim(m_robotDrive);
         m_Pneumatics = new Pneumatics(new PneumaticsIOReal(),m_driverController);
@@ -103,7 +102,7 @@ public class RobotContainer {
         break;
 
       // Sim robot, instantiate physics sim IO implementations
-      case SIM:
+      case "SIM":
       m_robotDrive  = new DifferentialDriveSubsystem(new DriveIOSim());
       m_fieldSim = new FieldSim(m_robotDrive);
       m_Pneumatics = new Pneumatics(new PneumaticsIOSim(),m_driverController);
@@ -179,20 +178,8 @@ public class RobotContainer {
     m_fieldSim.periodic();
 
     
-
-    int frontLeft = (int)SmartDashboard.getNumber("kFrontLeft", (Integer) m_constants.getProperty("kFrontLeft"));
-    int frontRight = (int)SmartDashboard.getNumber("kFrontRight", (Integer) m_constants.getProperty("kFrontRight"));
-    int rearLeft = (int)SmartDashboard.getNumber("kRearLeft", (Integer) m_constants.getProperty("kRearLeft"));
-    int rearRight = (int)SmartDashboard.getNumber("kRearRight", (Integer) m_constants.getProperty("kRearRight"));
-
+    m_constants.periodic();
     
-    
-    m_constants.setProperty("kFrontLeft", frontLeft);
-    m_constants.setProperty("kFrontRight", frontRight);
-    m_constants.setProperty("kRearLeft", rearLeft);
-    m_constants.setProperty("kRearRight", rearRight);
-
-    m_constants.saveData();
     
   }
 }

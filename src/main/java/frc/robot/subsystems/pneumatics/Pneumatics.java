@@ -4,7 +4,7 @@
 
 package frc.robot.subsystems.pneumatics;
 
-import frc.robot.Constants.PneumaticConstants;
+import frc.robot.config.YAMLDataHolder;
 import utils.ExtendedXboxController;
 
 import org.littletonrobotics.junction.Logger;
@@ -22,6 +22,7 @@ public class Pneumatics extends SubsystemBase {
   public boolean safety = false;
   public boolean cooldownReady = true;
   private ExtendedXboxController m_driverController;
+  private YAMLDataHolder m_constants = new YAMLDataHolder();
 
   public Pneumatics(PneumaticsIO pneumaticsIO, ExtendedXboxController m_driverController) {
     this.pneumaticsIO = pneumaticsIO;
@@ -52,7 +53,7 @@ public class Pneumatics extends SubsystemBase {
 
       // Checks if the right trigger just got pressed
     
-        if (sincePressedTimer.hasElapsed(PneumaticConstants.SAFTEY_DELAY) ){
+        if (sincePressedTimer.hasElapsed((int) m_constants.getProperty("SAFETY_DELAY")) ){
           safety = true;
           if(m_driverController.getRightTriggerPressed()){
             System.out.println("FIRE THE MAIN CANNONS");

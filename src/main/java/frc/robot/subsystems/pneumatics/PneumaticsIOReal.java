@@ -3,24 +3,27 @@ package frc.robot.subsystems.pneumatics;
 import edu.wpi.first.wpilibj.PneumaticHub;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
-import frc.robot.Constants.PneumaticConstants;
+
+import frc.robot.config.YAMLDataHolder;
 import frc.robot.subsystems.pneumatics.PneumaticsIO;
 
 public class PneumaticsIOReal implements PneumaticsIO {
-    PneumaticHub pneumaticHub = new PneumaticHub(PneumaticConstants.MODULE_NUMBER); 
+
+    private YAMLDataHolder m_constants = new YAMLDataHolder();
+    PneumaticHub pneumaticHub = new PneumaticHub((int) m_constants.getProperty("MODULE_NUMBER")); 
 
 
     
     
     public final Solenoid SolenoidList[] = {
-        new Solenoid(PneumaticsModuleType.CTREPCM, PneumaticConstants.T_SHIRT_SOLENOID_1_CHANNEL),
-        new Solenoid(PneumaticsModuleType.CTREPCM, PneumaticConstants.T_SHIRT_SOLENOID_2_CHANNEL),
-        new Solenoid(PneumaticsModuleType.CTREPCM, PneumaticConstants.T_SHIRT_SOLENOID_3_CHANNEL),
-        new Solenoid(PneumaticsModuleType.CTREPCM, PneumaticConstants.T_SHIRT_SOLENOID_4_CHANNEL),
-        new Solenoid(PneumaticsModuleType.CTREPCM, PneumaticConstants.T_SHIRT_SOLENOID_5_CHANNEL),
-        new Solenoid(PneumaticsModuleType.CTREPCM, PneumaticConstants.T_SHIRT_SOLENOID_6_CHANNEL),
-        new Solenoid(PneumaticsModuleType.CTREPCM, PneumaticConstants.T_SHIRT_SOLENOID_7_CHANNEL),
-        new Solenoid(PneumaticsModuleType.CTREPCM, PneumaticConstants.T_SHIRT_SOLENOID_8_CHANNEL),
+        new Solenoid(PneumaticsModuleType.CTREPCM, (int) m_constants.getProperty("T_SHIRT_SOLENOID_1_CHANNEL")),
+        new Solenoid(PneumaticsModuleType.CTREPCM, (int) m_constants.getProperty("T_SHIRT_SOLENOID_2_CHANNEL")),
+        new Solenoid(PneumaticsModuleType.CTREPCM, (int) m_constants.getProperty("T_SHIRT_SOLENOID_3_CHANNEL")),
+        new Solenoid(PneumaticsModuleType.CTREPCM, (int) m_constants.getProperty("T_SHIRT_SOLENOID_4_CHANNEL")),
+        new Solenoid(PneumaticsModuleType.CTREPCM, (int) m_constants.getProperty("T_SHIRT_SOLENOID_5_CHANNEL")),
+        new Solenoid(PneumaticsModuleType.CTREPCM, (int) m_constants.getProperty("T_SHIRT_SOLENOID_6_CHANNEL")),
+        new Solenoid(PneumaticsModuleType.CTREPCM, (int) m_constants.getProperty("T_SHIRT_SOLENOID_7_CHANNEL")),
+        new Solenoid(PneumaticsModuleType.CTREPCM, (int) m_constants.getProperty("T_SHIRT_SOLENOID_8_CHANNEL")),
       };
 
 @Override

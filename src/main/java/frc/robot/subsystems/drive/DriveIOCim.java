@@ -10,7 +10,8 @@ import com.ctre.phoenix.sensors.Pigeon2;
 
 import edu.wpi.first.math.util.Units;
 
-import frc.robot.Constants.DriveConstants;
+
+import frc.robot.config.YAMLDataHolder;
 
 public class DriveIOCim implements DriveIO {
   private static final double GEAR_RATIO = 6.0;
@@ -21,13 +22,15 @@ public class DriveIOCim implements DriveIO {
   private final TalonSRX leftFollower;
   private final TalonSRX rightFollower;
 
+  private YAMLDataHolder m_constants = new YAMLDataHolder();
+
   private final Pigeon2 gyro;
 
   public DriveIOCim() {
-    leftLeader = new TalonSRX(DriveConstants.kFrontLeft);
-    rightLeader = new TalonSRX(DriveConstants.kFrontRight);
-    leftFollower = new TalonSRX(DriveConstants.kRearLeft);
-    rightFollower = new TalonSRX(DriveConstants.kRearRight);
+    leftLeader = new TalonSRX((int)m_constants.getProperty("kFrontLeft"));
+    rightLeader = new TalonSRX((int)m_constants.getProperty("kFrontRight"));
+    leftFollower = new TalonSRX((int)m_constants.getProperty("kRearLeft"));
+    rightFollower = new TalonSRX((int)m_constants.getProperty("kRearRight"));
 
     TalonSRXConfiguration config = new TalonSRXConfiguration();
     config.voltageCompSaturation = 12.0;

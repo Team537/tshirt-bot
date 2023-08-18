@@ -8,7 +8,8 @@ import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.DriveConstants;
+
+import frc.robot.config.YAMLDataHolder;
 import frc.robot.subsystems.drive.DriveIO;
 import frc.robot.subsystems.drive.DriveIOInputsAutoLogged;
 
@@ -18,6 +19,7 @@ public class DifferentialDriveSubsystem extends SubsystemBase {
   private final DriveIO io;
   private final DriveIOInputsAutoLogged inputs = new DriveIOInputsAutoLogged();
   private final DifferentialDriveOdometry odometry = new DifferentialDriveOdometry(new Rotation2d(), 0.0, 0.0);
+  private YAMLDataHolder m_constants = new YAMLDataHolder();
 
   /** Creates a new Drive. */
   public DifferentialDriveSubsystem(DriveIO io) {
@@ -57,21 +59,21 @@ public class DifferentialDriveSubsystem extends SubsystemBase {
 
   /** Returns the position of the left wheels in meters. */
   public double getLeftPositionMeters() {
-    return inputs.leftPositionRad * DriveConstants.wheelRadius;
+    return inputs.leftPositionRad * (double) m_constants.getProperty("wheelRadius");
   }
 
   /** Returns the position of the right wheels in meters. */
   public double getRightPositionMeters() {
-    return inputs.rightPositionRad * DriveConstants.wheelRadius;
+    return inputs.rightPositionRad *(double) m_constants.getProperty("wheelRadius");
   }
 
   /** Returns the velocity of the left wheels in meters/second. */
   public double getLeftVelocityMeters() {
-    return inputs.leftVelocityRadPerSec * DriveConstants.wheelRadius;
+    return inputs.leftVelocityRadPerSec *(double) m_constants.getProperty("wheelRadius");
   }
 
   /** Returns the velocity of the right wheels in meters/second. */
   public double getRightVelocityMeters() {
-    return inputs.rightVelocityRadPerSec * DriveConstants.wheelRadius;
+    return inputs.rightVelocityRadPerSec * (double) m_constants.getProperty("wheelRadius");
   }
 }

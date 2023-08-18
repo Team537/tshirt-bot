@@ -14,7 +14,8 @@ import org.littletonrobotics.junction.wpilog.WPILOGWriter;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.Constants.DriveConstants;
+
+import frc.robot.config.YAMLDataHolder;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -28,6 +29,7 @@ public class Robot extends LoggedRobot {
 
      
   private RobotContainer m_robotContainer;
+  private YAMLDataHolder m_constants = new YAMLDataHolder();
   //private Intake m_intake = new Intake();
 
   /**
@@ -61,21 +63,21 @@ public class Robot extends LoggedRobot {
         break;
     }
 
-    switch (DriveConstants.currentMode) {
+    switch ((String) m_constants.getProperty("currentMode")) {
       // Running on a real robot, log to a USB stick
-      case REAL:
+      case "REAL":
       Logger.getInstance().addDataReceiver(new WPILOGWriter("/home/lvuser"));
       Logger.getInstance().addDataReceiver(new NT4Publisher());
         break;
 
       // Running a physics simulator, log to local folder
-      case SIM:
+      case "SIM":
       Logger.getInstance().addDataReceiver(new WPILOGWriter(""));
       Logger.getInstance().addDataReceiver(new NT4Publisher());
         break;
 
       // Replaying a log, set up replay source
-      case REPLAY:
+      case "REPLAY":
         setUseTiming(false); // Run as fast as possible
         String logPath = LogFileUtil.findReplayLog();
         Logger.getInstance().setReplaySource(new WPILOGReader(logPath));
