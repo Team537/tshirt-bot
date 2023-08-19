@@ -128,7 +128,7 @@ public class RobotContainer {
     }
  
 
-    SmartDashboard.putData("Reset Solenoid Array",new InstantCommand(m_Pneumatics::ResetShootArray, m_Pneumatics));
+    SmartDashboard.putData("Shooter/Reset Solenoid Array",new InstantCommand(m_Pneumatics::ResetShootArray, m_Pneumatics));
     
      
       
@@ -161,14 +161,11 @@ public class RobotContainer {
   
 
   
-  /**
-   * Use this to pass the autonomous command to the main {@link Robot} class.
-   *
-   * @return the command to run in autonomous
-   */
- 
+  public void onDisable(){
 
- 
+
+    m_constants.saveData();
+  }
 
   public void periodic(){
 

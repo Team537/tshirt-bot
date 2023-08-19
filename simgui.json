@@ -27,13 +27,20 @@
     "types": {
       "/FMSInfo": "FMSInfo",
       "/SmartDashboard/Arm": "Subsystem",
+      "/SmartDashboard/Drive/Field2d": "Field2d",
       "/SmartDashboard/DriveSubsystem": "Subsystem",
       "/SmartDashboard/Field2d": "Field2d",
       "/SmartDashboard/Reset Solenoid Array": "Command",
-      "/SmartDashboard/Scheduler": "Scheduler"
+      "/SmartDashboard/Scheduler": "Scheduler",
+      "/SmartDashboard/Shooter/Reset Solenoid Array": "Command"
     },
     "windows": {
-      "/SmartDashboard/Reset Solenoid Array": {
+      "/SmartDashboard/Drive/Field2d": {
+        "window": {
+          "visible": true
+        }
+      },
+      "/SmartDashboard/Shooter/Reset Solenoid Array": {
         "window": {
           "visible": true
         }
@@ -42,6 +49,21 @@
   },
   "NetworkTables": {
     "transitory": {
+      "AdvantageKit": {
+        "Drive": {
+          "open": true
+        },
+        "open": true
+      },
+      "Shuffleboard": {
+        ".metadata": {
+          "open": true
+        },
+        ".recording": {
+          "open": true
+        },
+        "open": true
+      },
       "SmartDashboard": {
         "TunableNumbers": {
           "open": true

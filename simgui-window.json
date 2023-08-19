@@ -6,14 +6,24 @@
       "style": "0",
       "userScale": "2",
       "width": "1600",
-      "xpos": "221",
-      "ypos": "89"
+      "xpos": "50",
+      "ypos": "104"
     }
   },
   "Window": {
+    "###/SmartDashboard/Drive/Field2d": {
+      "Collapsed": "0",
+      "Pos": "200,200",
+      "Size": "400,200"
+    },
     "###/SmartDashboard/Reset Solenoid Array": {
       "Collapsed": "0",
       "Pos": "183,90",
+      "Size": "142,65"
+    },
+    "###/SmartDashboard/Shooter/Reset Solenoid Array": {
+      "Collapsed": "0",
+      "Pos": "288,142",
       "Size": "104,71"
     },
     "###FMS": {
@@ -28,7 +38,7 @@
     },
     "###NetworkTables": {
       "Collapsed": "0",
-      "Pos": "544,115",
+      "Pos": "544,116",
       "Size": "937,681"
     },
     "###Other Devices": {

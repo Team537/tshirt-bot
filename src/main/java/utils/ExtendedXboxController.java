@@ -47,8 +47,7 @@ public class ExtendedXboxController extends XboxController {
         int[] updatedTriggerValues = update_trigger_values();
         leftTriggerState = updatedTriggerValues[0];
         rightTriggerState = updatedTriggerValues[1];
-        SmartDashboard.putNumber("Left Trigger", leftTriggerState);
-        SmartDashboard.putNumber("Right Trigger", rightTriggerState);
+      
         
     }
 

@@ -163,18 +163,18 @@ public void setXboxController(ExtendedXboxController m_driverController) {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.putNumber(" Active Solenoid Cycle Num", iSolenoid);
-    SmartDashboard.putBoolean("Cooldown Ready", cooldownReady);
-    SmartDashboard.putBoolean("Safety Ready", safety);
-    SmartDashboard.putBoolean("Solenoid Array Done", arrayDone);
+    SmartDashboard.putNumber("Shooter/Active Solenoid Cycle Num", iSolenoid);
+    SmartDashboard.putBoolean("Shooter/Cooldown Ready", cooldownReady);
+    SmartDashboard.putBoolean("Shooter/Safety Ready", safety);
+    SmartDashboard.putBoolean("Shooter/Solenoid Array Done", arrayDone);
     
 
     pneumaticsIO.updateInputs(pneumaticsIOInputsAutoLogged);
-    Logger.getInstance().processInputs("Solenoid States", pneumaticsIOInputsAutoLogged);
-    Logger.getInstance().recordOutput(" Active Solenoid Cycle Num", iSolenoid);
-    Logger.getInstance().recordOutput("Cooldown Ready", cooldownReady);
-    Logger.getInstance().recordOutput("Safety Ready", safety);
-    Logger.getInstance().recordOutput("Solenoid Array Done", arrayDone);
+    Logger.getInstance().processInputs("Shooter/Solenoid States", pneumaticsIOInputsAutoLogged);
+    Logger.getInstance().recordOutput("Shooter/Active Solenoid Cycle Num", iSolenoid);
+    Logger.getInstance().recordOutput("Shooter/Cooldown Ready", cooldownReady);
+    Logger.getInstance().recordOutput("Shooter/Safety Ready", safety);
+    Logger.getInstance().recordOutput("Shooter/Solenoid Array Done", arrayDone);
    
     
     

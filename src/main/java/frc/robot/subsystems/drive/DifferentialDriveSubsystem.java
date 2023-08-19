@@ -40,7 +40,7 @@ public class DifferentialDriveSubsystem extends SubsystemBase {
 
     // Update odometry and log the new pose
     odometry.update(new Rotation2d(-inputs.gyroYawRad), getLeftPositionMeters(), getRightPositionMeters());
-    Logger.getInstance().recordOutput("Odometry", getPose());
+    Logger.getInstance().recordOutput("Drive/Odometry", getPose());
   }
 
   /** Run open loop at the specified percentage. */
