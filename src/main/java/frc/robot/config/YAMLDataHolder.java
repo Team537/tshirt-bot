@@ -57,51 +57,51 @@ public class YAMLDataHolder {
 
 
     public void init() {
-     LoggedDashboardNumber kFrontLeft = new LoggedDashboardNumber("kFrontLeft",(Integer) getProperty("kFrontLeft"));
-     LoggedDashboardNumber kFrontRight  = new LoggedDashboardNumber("kFrontRight",(Integer) getProperty("kFrontRight"));
-     LoggedDashboardNumber kRearLeft  = new LoggedDashboardNumber("kRearLeft",(Integer) getProperty("kRearLeft"));
-     LoggedDashboardNumber  kRearRight  = new LoggedDashboardNumber("kRearRight",(Integer) getProperty("kRearRight"));
-     LoggedDashboardNumber kTrackWidthMeters = new LoggedDashboardNumber("kTrackWidthMeters",(Double) getProperty("kTrackwidthMeters"));
-     LoggedDashboardNumber wheelRadius = new LoggedDashboardNumber("wheelRadius",(Double) getProperty("wheelRadius"));
-     LoggedDashboardNumber kEncoderCPR = new LoggedDashboardNumber("kEncoderCPR",(Integer) getProperty("kEncoderCPR"));
-     LoggedDashboardNumber kWheelDiameterMeters = new LoggedDashboardNumber("kWheelDiameterMeters",(Double) getProperty("kWheelDiameterMeters"));
-     LoggedDashboardNumber MODULE_NUMBER  = new LoggedDashboardNumber("MODULE_NUMBER",(Integer) getProperty("MODULE_NUMBER"));
-     LoggedDashboardNumber T_SHIRT_SOLENOID_1_CHANNEL = new LoggedDashboardNumber("T_SHIRT_SOLENOID_1_CHANNEL",(Integer) getProperty("T_SHIRT_SOLENOID_1_CHANNEL"));
-     LoggedDashboardNumber T_SHIRT_SOLENOID_2_CHANNEL  = new LoggedDashboardNumber("T_SHIRT_SOLENOID_2_CHANNEL",(Integer) getProperty("T_SHIRT_SOLENOID_2_CHANNEL"));
-     LoggedDashboardNumber T_SHIRT_SOLENOID_3_CHANNEL  = new LoggedDashboardNumber("T_SHIRT_SOLENOID_3_CHANNEL",(Integer) getProperty("T_SHIRT_SOLENOID_3_CHANNEL"));
-     LoggedDashboardNumber T_SHIRT_SOLENOID_4_CHANNEL  = new LoggedDashboardNumber("T_SHIRT_SOLENOID_4_CHANNEL",(Integer) getProperty("T_SHIRT_SOLENOID_4_CHANNEL"));
-     LoggedDashboardNumber T_SHIRT_SOLENOID_5_CHANNEL  = new LoggedDashboardNumber("T_SHIRT_SOLENOID_5_CHANNEL",(Integer) getProperty("T_SHIRT_SOLENOID_5_CHANNEL"));
-     LoggedDashboardNumber  T_SHIRT_SOLENOID_6_CHANNEL = new LoggedDashboardNumber("T_SHIRT_SOLENOID_6_CHANNEL",(Integer) getProperty("T_SHIRT_SOLENOID_6_CHANNEL"));
-     LoggedDashboardNumber T_SHIRT_SOLENOID_7_CHANNEL  = new LoggedDashboardNumber("T_SHIRT_SOLENOID_7_CHANNEL",(Integer) getProperty("T_SHIRT_SOLENOID_7_CHANNEL"));
-     LoggedDashboardNumber  T_SHIRT_SOLENOID_8_CHANNEL  = new LoggedDashboardNumber("T_SHIRT_SOLENOID_8_CHANNEL",(Integer) getProperty("T_SHIRT_SOLENOID_8_CHANNEL"));
-     LoggedDashboardNumber  SAFETY_DELAY  = new LoggedDashboardNumber("SAFETY_DELAY",(Integer) getProperty("SAFETY_DELAY"));
-    //  LoggedDashboardNumber kDriverControllerPort  = new LoggedDashboardNumber("kDriverControllerPort",(Integer) getProperty("kDriverControllerPort"));
-     LoggedDashboardNumber SECONDS = new LoggedDashboardNumber("SECONDS",(Integer) getProperty("SECONDS"));
+    //  LoggedDashboardNumber kFrontLeft = new LoggedDashboardNumber("kFrontLeft",(Integer) getProperty("kFrontLeft"));
+    //  LoggedDashboardNumber kFrontRight  = new LoggedDashboardNumber("kFrontRight",(Integer) getProperty("kFrontRight"));
+    //  LoggedDashboardNumber kRearLeft  = new LoggedDashboardNumber("kRearLeft",(Integer) getProperty("kRearLeft"));
+    //  LoggedDashboardNumber  kRearRight  = new LoggedDashboardNumber("kRearRight",(Integer) getProperty("kRearRight"));
+    //  LoggedDashboardNumber kTrackWidthMeters = new LoggedDashboardNumber("kTrackWidthMeters",(Double) getProperty("kTrackwidthMeters"));
+    //  LoggedDashboardNumber wheelRadius = new LoggedDashboardNumber("wheelRadius",(Double) getProperty("wheelRadius"));
+    //  LoggedDashboardNumber kEncoderCPR = new LoggedDashboardNumber("kEncoderCPR",(Integer) getProperty("kEncoderCPR"));
+    //  LoggedDashboardNumber kWheelDiameterMeters = new LoggedDashboardNumber("kWheelDiameterMeters",(Double) getProperty("kWheelDiameterMeters"));
+    //  LoggedDashboardNumber MODULE_NUMBER  = new LoggedDashboardNumber("MODULE_NUMBER",(Integer) getProperty("MODULE_NUMBER"));
+    //  LoggedDashboardNumber T_SHIRT_SOLENOID_1_CHANNEL = new LoggedDashboardNumber("T_SHIRT_SOLENOID_1_CHANNEL",(Integer) getProperty("T_SHIRT_SOLENOID_1_CHANNEL"));
+    //  LoggedDashboardNumber T_SHIRT_SOLENOID_2_CHANNEL  = new LoggedDashboardNumber("T_SHIRT_SOLENOID_2_CHANNEL",(Integer) getProperty("T_SHIRT_SOLENOID_2_CHANNEL"));
+    //  LoggedDashboardNumber T_SHIRT_SOLENOID_3_CHANNEL  = new LoggedDashboardNumber("T_SHIRT_SOLENOID_3_CHANNEL",(Integer) getProperty("T_SHIRT_SOLENOID_3_CHANNEL"));
+    //  LoggedDashboardNumber T_SHIRT_SOLENOID_4_CHANNEL  = new LoggedDashboardNumber("T_SHIRT_SOLENOID_4_CHANNEL",(Integer) getProperty("T_SHIRT_SOLENOID_4_CHANNEL"));
+    //  LoggedDashboardNumber T_SHIRT_SOLENOID_5_CHANNEL  = new LoggedDashboardNumber("T_SHIRT_SOLENOID_5_CHANNEL",(Integer) getProperty("T_SHIRT_SOLENOID_5_CHANNEL"));
+    //  LoggedDashboardNumber  T_SHIRT_SOLENOID_6_CHANNEL = new LoggedDashboardNumber("T_SHIRT_SOLENOID_6_CHANNEL",(Integer) getProperty("T_SHIRT_SOLENOID_6_CHANNEL"));
+    //  LoggedDashboardNumber T_SHIRT_SOLENOID_7_CHANNEL  = new LoggedDashboardNumber("T_SHIRT_SOLENOID_7_CHANNEL",(Integer) getProperty("T_SHIRT_SOLENOID_7_CHANNEL"));
+    //  LoggedDashboardNumber  T_SHIRT_SOLENOID_8_CHANNEL  = new LoggedDashboardNumber("T_SHIRT_SOLENOID_8_CHANNEL",(Integer) getProperty("T_SHIRT_SOLENOID_8_CHANNEL"));
+    //  LoggedDashboardNumber  SAFETY_DELAY  = new LoggedDashboardNumber("SAFETY_DELAY",(Integer) getProperty("SAFETY_DELAY"));
+    // //  LoggedDashboardNumber kDriverControllerPort  = new LoggedDashboardNumber("kDriverControllerPort",(Integer) getProperty("kDriverControllerPort"));
+    //  LoggedDashboardNumber SECONDS = new LoggedDashboardNumber("SECONDS",(Integer) getProperty("SECONDS"));
 
     }
 
     public void periodic() {
 
-        int frontLeft = (int)SmartDashboard.getNumber("kFrontLeft", (Integer) getProperty("kFrontLeft"));
-        int frontRight = (int)SmartDashboard.getNumber("kFrontRight", (Integer) getProperty("kFrontRight"));
-        int rearLeft = (int)SmartDashboard.getNumber("kRearLeft", (Integer) getProperty("kRearLeft"));
-        int rearRight = (int)SmartDashboard.getNumber("kRearRight", (Integer) getProperty("kRearRight"));
+        int frontLeft = (int)SmartDashboard.getNumber("TunableNumbers/kFrontLeft", (Integer) getProperty("kFrontLeft"));
+        int frontRight = (int)SmartDashboard.getNumber("TunableNumbers/kFrontRight", (Integer) getProperty("kFrontRight"));
+        int rearLeft = (int)SmartDashboard.getNumber("TunableNumbers/kRearLeft", (Integer) getProperty("kRearLeft"));
+        int rearRight = (int)SmartDashboard.getNumber("TunableNumbers/kRearRight", (Integer) getProperty("kRearRight"));
         double kTrackWidthMeters = (double)SmartDashboard.getNumber("kTrackWidthMeters", (Double) getProperty("kTrackwidthMeters"));
-        double wheelRadius = (double)SmartDashboard.getNumber("wheelRadius", (Double) getProperty("wheelRadius"));
+        double wheelRadius = (double)SmartDashboard.getNumber("TunableNumbers/wheelRadius", (Double) getProperty("wheelRadius"));
         int kEncoderCPR = (int)SmartDashboard.getNumber("kEncoderCPR", (Integer) getProperty("kEncoderCPR"));
         double kWheelDiameterMeters = (double)SmartDashboard.getNumber("kWheelDiameterMeters", (Double) getProperty("kWheelDiameterMeters"));
-        int MODULE_NUMBER = (int)SmartDashboard.getNumber("MODULE_NUMBER", (Integer) getProperty("MODULE_NUMBER"));
-        int T_SHIRT_SOLENOID_1_CHANNEL = (int)SmartDashboard.getNumber("T_SHIRT_SOLENOID_1_CHANNEL", (Integer) getProperty("T_SHIRT_SOLENOID_1_CHANNEL"));
-        int T_SHIRT_SOLENOID_2_CHANNEL = (int)SmartDashboard.getNumber("T_SHIRT_SOLENOID_2_CHANNEL", (Integer) getProperty("T_SHIRT_SOLENOID_2_CHANNEL"));
-        int T_SHIRT_SOLENOID_3_CHANNEL = (int)SmartDashboard.getNumber("T_SHIRT_SOLENOID_3_CHANNEL", (Integer) getProperty("T_SHIRT_SOLENOID_3_CHANNEL"));
-        int T_SHIRT_SOLENOID_4_CHANNEL = (int)SmartDashboard.getNumber("T_SHIRT_SOLENOID_4_CHANNEL", (Integer) getProperty("T_SHIRT_SOLENOID_4_CHANNEL"));
-        int T_SHIRT_SOLENOID_5_CHANNEL = (int)SmartDashboard.getNumber("T_SHIRT_SOLENOID_5_CHANNEL", (Integer) getProperty("T_SHIRT_SOLENOID_5_CHANNEL"));
-        int T_SHIRT_SOLENOID_6_CHANNEL = (int)SmartDashboard.getNumber("T_SHIRT_SOLENOID_6_CHANNEL", (Integer) getProperty("T_SHIRT_SOLENOID_6_CHANNEL"));
-        int T_SHIRT_SOLENOID_7_CHANNEL = (int)SmartDashboard.getNumber("T_SHIRT_SOLENOID_7_CHANNEL", (Integer) getProperty("T_SHIRT_SOLENOID_7_CHANNEL"));
-        int T_SHIRT_SOLENOID_8_CHANNEL = (int)SmartDashboard.getNumber("T_SHIRT_SOLENOID_8_CHANNEL", (Integer) getProperty("T_SHIRT_SOLENOID_8_CHANNEL"));
-        int SAFETY_DELAY = (int)SmartDashboard.getNumber("SAFETY_DELAY", (Integer) getProperty("SAFETY_DELAY"));
+        int MODULE_NUMBER = (int)SmartDashboard.getNumber("TunableNumbers/MODULE_NUMBER", (Integer) getProperty("MODULE_NUMBER"));
+        int T_SHIRT_SOLENOID_1_CHANNEL = (int)SmartDashboard.getNumber("TunableNumbers/T_SHIRT_SOLENOID_1_CHANNEL", (Integer) getProperty("T_SHIRT_SOLENOID_1_CHANNEL"));
+        int T_SHIRT_SOLENOID_2_CHANNEL = (int)SmartDashboard.getNumber("TunableNumbers/T_SHIRT_SOLENOID_2_CHANNEL", (Integer) getProperty("T_SHIRT_SOLENOID_2_CHANNEL"));
+        int T_SHIRT_SOLENOID_3_CHANNEL = (int)SmartDashboard.getNumber("TunableNumbers/T_SHIRT_SOLENOID_3_CHANNEL", (Integer) getProperty("T_SHIRT_SOLENOID_3_CHANNEL"));
+        int T_SHIRT_SOLENOID_4_CHANNEL = (int)SmartDashboard.getNumber("TunableNumbers/T_SHIRT_SOLENOID_4_CHANNEL", (Integer) getProperty("T_SHIRT_SOLENOID_4_CHANNEL"));
+        int T_SHIRT_SOLENOID_5_CHANNEL = (int)SmartDashboard.getNumber("TunableNumbers/T_SHIRT_SOLENOID_5_CHANNEL", (Integer) getProperty("T_SHIRT_SOLENOID_5_CHANNEL"));
+        int T_SHIRT_SOLENOID_6_CHANNEL = (int)SmartDashboard.getNumber("TunableNumbers/T_SHIRT_SOLENOID_6_CHANNEL", (Integer) getProperty("T_SHIRT_SOLENOID_6_CHANNEL"));
+        int T_SHIRT_SOLENOID_7_CHANNEL = (int)SmartDashboard.getNumber("TunableNumbers/T_SHIRT_SOLENOID_7_CHANNEL", (Integer) getProperty("T_SHIRT_SOLENOID_7_CHANNEL"));
+        int T_SHIRT_SOLENOID_8_CHANNEL = (int)SmartDashboard.getNumber("TunableNumbers/T_SHIRT_SOLENOID_8_CHANNEL", (Integer) getProperty("T_SHIRT_SOLENOID_8_CHANNEL"));
+        int SAFETY_DELAY = (int)SmartDashboard.getNumber("TunableNumbers/SAFETY_DELAY", (Integer) getProperty("SAFETY_DELAY"));
         int driverControllerPort = (int)SmartDashboard.getNumber("TunableNumbers/kDriverControllerPort", (Integer) getProperty("kDriverControllerPort"));
-        int SECONDS = (int)SmartDashboard.getNumber("SECONDS", (Integer) getProperty("SECONDS"));
+        int SECONDS = (int)SmartDashboard.getNumber("TunableNumbers/SECONDS", (Integer) getProperty("SECONDS"));
     
         
         

@@ -171,6 +171,16 @@ public class RobotContainer {
  
 
   public void periodic(){
+
+    m_constants.periodic();
+    
+    if(kDriverControllerPort.hasChanged(hashCode())) {
+      m_driverController = new ExtendedXboxController((int)kDriverControllerPort.get());
+
+      m_Pneumatics.setXboxController(m_driverController);
+    }
+
+
     //Updates the trigger values
     m_driverController.periodic();
     // Checks if it can shoot
@@ -181,13 +191,10 @@ public class RobotContainer {
     m_fieldSim.periodic();
 
     
-    m_constants.periodic();
+    
     
 
-    if(kDriverControllerPort.hasChanged(hashCode())) {
-      m_driverController = new ExtendedXboxController((int)kDriverControllerPort.get());
-
-    }
+    
     
   }
 }

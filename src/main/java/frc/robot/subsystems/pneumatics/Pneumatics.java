@@ -6,6 +6,7 @@ package frc.robot.subsystems.pneumatics;
 
 import frc.robot.config.YAMLDataHolder;
 import utils.ExtendedXboxController;
+import utils.LoggedTunableNumber;
 
 import org.littletonrobotics.junction.Logger;
 
@@ -23,6 +24,11 @@ public class Pneumatics extends SubsystemBase {
   public boolean cooldownReady = true;
   private ExtendedXboxController m_driverController;
   private YAMLDataHolder m_constants = new YAMLDataHolder();
+  
+
+  private LoggedTunableNumber SAFETY_DELAY = new LoggedTunableNumber("SAFETY_DELAY", (int) m_constants.getProperty("SAFETY_DELAY"));
+
+  private boolean hasTimeElapsed = sincePressedTimer.hasElapsed((int) SAFETY_DELAY.get());
 
   public Pneumatics(PneumaticsIO pneumaticsIO, ExtendedXboxController m_driverController) {
     this.pneumaticsIO = pneumaticsIO;
@@ -36,7 +42,9 @@ public class Pneumatics extends SubsystemBase {
   /** Creates a new Pneumatics. */
   
 
-
+public void setXboxController(ExtendedXboxController m_driverController) { 
+  this.m_driverController = m_driverController;
+}
   
   public boolean canShoot(){ // int leftTriggerState, int rightTriggerState
      
@@ -53,7 +61,7 @@ public class Pneumatics extends SubsystemBase {
 
       // Checks if the right trigger just got pressed
     
-        if (sincePressedTimer.hasElapsed((int) m_constants.getProperty("SAFETY_DELAY")) ){
+        if (sincePressedTimer.hasElapsed((int) SAFETY_DELAY.get())){
           safety = true;
           if(m_driverController.getRightTriggerPressed()){
             System.out.println("FIRE THE MAIN CANNONS");
@@ -168,6 +176,7 @@ public class Pneumatics extends SubsystemBase {
     Logger.getInstance().recordOutput("Safety Ready", safety);
     Logger.getInstance().recordOutput("Solenoid Array Done", arrayDone);
    
+    
     
 
     

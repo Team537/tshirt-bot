@@ -12,25 +12,31 @@ import edu.wpi.first.math.util.Units;
 
 
 import frc.robot.config.YAMLDataHolder;
+import utils.LoggedTunableNumber;
 
 public class DriveIOCim implements DriveIO {
   private static final double GEAR_RATIO = 6.0;
   private static final double TICKS_PER_REV = 2048;
 
-  private final TalonSRX leftLeader;
-  private final TalonSRX rightLeader;
-  private final TalonSRX leftFollower;
-  private final TalonSRX rightFollower;
+  private  TalonSRX leftLeader;
+  private  TalonSRX rightLeader;
+  private  TalonSRX leftFollower;
+  private  TalonSRX rightFollower;
 
   private YAMLDataHolder m_constants = new YAMLDataHolder();
 
   private final Pigeon2 gyro;
 
+  private LoggedTunableNumber kFrontLeft = new LoggedTunableNumber("kFrontLeft", (int)m_constants.getProperty("kFrontLeft"));
+  private LoggedTunableNumber kFrontRight = new LoggedTunableNumber("kFrontRight", (int)m_constants.getProperty("kFrontRight"));
+  private LoggedTunableNumber kRearLeft = new LoggedTunableNumber("kRearLeft", (int)m_constants.getProperty("kRearLeft"));
+  private LoggedTunableNumber kRearRight = new LoggedTunableNumber("kRearRight", (int)m_constants.getProperty("kRearRight"));
+
   public DriveIOCim() {
-    leftLeader = new TalonSRX((int)m_constants.getProperty("kFrontLeft"));
-    rightLeader = new TalonSRX((int)m_constants.getProperty("kFrontRight"));
-    leftFollower = new TalonSRX((int)m_constants.getProperty("kRearLeft"));
-    rightFollower = new TalonSRX((int)m_constants.getProperty("kRearRight"));
+    leftLeader = new TalonSRX((int) kFrontLeft.get());
+    rightLeader = new TalonSRX((int) kFrontRight.get());
+    leftFollower = new TalonSRX((int) kRearLeft.get());
+    rightFollower = new TalonSRX((int) kRearRight.get());
 
     TalonSRXConfiguration config = new TalonSRXConfiguration();
     config.voltageCompSaturation = 12.0;
@@ -58,6 +64,12 @@ public class DriveIOCim implements DriveIO {
     inputs.rightVelocityRadPerSec = Units.rotationsPerMinuteToRadiansPerSecond(
         rightLeader.getSelectedSensorVelocity() * 10 / TICKS_PER_REV / GEAR_RATIO);
     inputs.gyroYawRad = gyro.getYaw();
+
+    if(kFrontLeft.hasChanged(hashCode()) || kFrontRight.hasChanged(hashCode()) || kRearLeft.hasChanged(hashCode()) || kRearRight.hasChanged(hashCode()))
+    leftLeader = new TalonSRX((int) kFrontLeft.get());
+    rightLeader = new TalonSRX((int) kFrontRight.get());
+    leftFollower = new TalonSRX((int) kRearLeft.get());
+    rightFollower = new TalonSRX((int) kRearRight.get());
   }
 
   @Override
