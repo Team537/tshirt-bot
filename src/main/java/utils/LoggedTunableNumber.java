@@ -70,7 +70,7 @@ public class LoggedTunableNumber {
    * @return The current value
    */
   public double get() {
-    System.out.println("Tuning Mode: " + tuningMode);
+    
     if (!hasDefault) {
       return 0.0;
     } else {
