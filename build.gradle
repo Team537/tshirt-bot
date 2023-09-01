@@ -57,7 +57,7 @@ dependencies {
     // https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-yaml
     implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.14.2'
 
-   implementation 'org.yaml:snakeyaml:2.1'
+    implementation 'org.yaml:snakeyaml:2.1'
 
     roborioDebug wpi.java.deps.wpilibJniDebug(wpi.platforms.roborio)
     roborioDebug wpi.java.vendor.jniDebug(wpi.platforms.roborio)

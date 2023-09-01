@@ -44,6 +44,7 @@ public class Pneumatics extends SubsystemBase {
 
 public void setXboxController(ExtendedXboxController m_driverController) { 
   this.m_driverController = m_driverController;
+  
 }
   
   public boolean canShoot(){ // int leftTriggerState, int rightTriggerState

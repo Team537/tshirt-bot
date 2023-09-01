@@ -15,6 +15,7 @@ import java.util.Map;
 public class YAMLDataHolder {
    
     private Map<String, Object> properties  = loadPropertiesFromFile();
+    private boolean tuningMode = (boolean) getProperty("tuningMode");
 
 
   
@@ -104,7 +105,7 @@ public class YAMLDataHolder {
         int SECONDS = (int)SmartDashboard.getNumber("TunableNumbers/SECONDS", (Integer) getProperty("SECONDS"));
     
         
-        
+        if(tuningMode){
         setProperty("kFrontLeft", frontLeft);
         setProperty("kFrontRight", frontRight);
         setProperty("kRearLeft", rearLeft);
@@ -125,7 +126,7 @@ public class YAMLDataHolder {
         setProperty("SAFETY_DELAY", SAFETY_DELAY);
         setProperty("kDriverControllerPort", driverControllerPort);
         setProperty("SECONDS", SECONDS);
-    
+        }
         // saveData();
 
 

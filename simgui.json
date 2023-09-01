@@ -65,6 +65,9 @@
         "open": true
       },
       "SmartDashboard": {
+        "Shooter": {
+          "open": true
+        },
         "TunableNumbers": {
           "open": true
         },

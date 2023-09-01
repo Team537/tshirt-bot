@@ -5,10 +5,13 @@
 
 package utils;
 
+import java.io.Console;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.littletonrobotics.junction.networktables.LoggedDashboardNumber;
+
+import frc.robot.config.YAMLDataHolder;
 
 /**
  * Class for a tunable number. Gets value from dashboard in tuning mode, returns default if not or
@@ -16,12 +19,15 @@ import org.littletonrobotics.junction.networktables.LoggedDashboardNumber;
  */
 public class LoggedTunableNumber {
   private static final String tableKey = "TunableNumbers";
+  private YAMLDataHolder m_constants = new YAMLDataHolder();
 
   private final String key;
   private boolean hasDefault = false;
   private double defaultValue;
   private LoggedDashboardNumber dashboardNumber;
   private Map<Integer, Double> lastHasChangedValues = new HashMap<>();
+  private boolean tuningMode = (boolean) m_constants.getProperty("tuningMode");
+  
 
   /**
    * Create a new LoggedTunableNumber
@@ -64,10 +70,11 @@ public class LoggedTunableNumber {
    * @return The current value
    */
   public double get() {
+    System.out.println("Tuning Mode: " + tuningMode);
     if (!hasDefault) {
       return 0.0;
     } else {
-      return dashboardNumber.get();
+      return tuningMode ? dashboardNumber.get() : defaultValue;
     }
   }
 
