@@ -8,9 +8,11 @@ import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.DriveConstants;
+
+import frc.robot.config.YAMLDataHolder;
 import frc.robot.subsystems.drive.DriveIO;
 import frc.robot.subsystems.drive.DriveIOInputsAutoLogged;
+import utils.LoggedTunableNumber;
 
 public class DifferentialDriveSubsystem extends SubsystemBase {
   
@@ -18,6 +20,9 @@ public class DifferentialDriveSubsystem extends SubsystemBase {
   private final DriveIO io;
   private final DriveIOInputsAutoLogged inputs = new DriveIOInputsAutoLogged();
   private final DifferentialDriveOdometry odometry = new DifferentialDriveOdometry(new Rotation2d(), 0.0, 0.0);
+  private YAMLDataHolder m_constants = new YAMLDataHolder();
+  private LoggedTunableNumber wheelRadius = new LoggedTunableNumber("wheelRadius", (double) m_constants.getProperty("wheelRadius"));
+  private double wheelRadiusl = (double) wheelRadius.get();
 
   /** Creates a new Drive. */
   public DifferentialDriveSubsystem(DriveIO io) {
@@ -29,9 +34,13 @@ public class DifferentialDriveSubsystem extends SubsystemBase {
     io.updateInputs(inputs);
     Logger.getInstance().processInputs("Drive", inputs);
 
+    if(wheelRadius.hasChanged(hashCode())) {
+      wheelRadiusl = (double) wheelRadius.get();
+    }
+
     // Update odometry and log the new pose
     odometry.update(new Rotation2d(-inputs.gyroYawRad), getLeftPositionMeters(), getRightPositionMeters());
-    Logger.getInstance().recordOutput("Odometry", getPose());
+    Logger.getInstance().recordOutput("Drive/Odometry", getPose());
   }
 
   /** Run open loop at the specified percentage. */
@@ -57,21 +66,21 @@ public class DifferentialDriveSubsystem extends SubsystemBase {
 
   /** Returns the position of the left wheels in meters. */
   public double getLeftPositionMeters() {
-    return inputs.leftPositionRad * DriveConstants.wheelRadius;
+    return inputs.leftPositionRad * wheelRadiusl;
   }
 
   /** Returns the position of the right wheels in meters. */
   public double getRightPositionMeters() {
-    return inputs.rightPositionRad * DriveConstants.wheelRadius;
+    return inputs.rightPositionRad * wheelRadiusl;
   }
 
   /** Returns the velocity of the left wheels in meters/second. */
   public double getLeftVelocityMeters() {
-    return inputs.leftVelocityRadPerSec * DriveConstants.wheelRadius;
+    return inputs.leftVelocityRadPerSec * wheelRadiusl;
   }
 
   /** Returns the velocity of the right wheels in meters/second. */
   public double getRightVelocityMeters() {
-    return inputs.rightVelocityRadPerSec * DriveConstants.wheelRadius;
+    return inputs.rightVelocityRadPerSec * wheelRadiusl;
   }
 }

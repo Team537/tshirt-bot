@@ -14,7 +14,8 @@ import org.littletonrobotics.junction.wpilog.WPILOGWriter;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.Constants.DriveConstants;
+
+import frc.robot.config.YAMLDataHolder;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -28,6 +29,7 @@ public class Robot extends LoggedRobot {
 
      
   private RobotContainer m_robotContainer;
+  private YAMLDataHolder m_constants = new YAMLDataHolder();
   //private Intake m_intake = new Intake();
 
   /**
@@ -37,45 +39,45 @@ public class Robot extends LoggedRobot {
   @Override
   public void robotInit() {
     Logger.getInstance().recordMetadata("ProjectName", BuildConstants.MAVEN_NAME); // Set a metadata value
-    SmartDashboard.putString("ProjectName", BuildConstants.MAVEN_NAME); // Set a metadata value
+    SmartDashboard.putString("Metadata/ProjectName", BuildConstants.MAVEN_NAME); // Set a metadata value
     Logger.getInstance().recordMetadata("BuildDate", BuildConstants.BUILD_DATE);
-    SmartDashboard.putString("BuildDate", BuildConstants.BUILD_DATE);
+    SmartDashboard.putString("Metadata/BuildDate", BuildConstants.BUILD_DATE);
     Logger.getInstance().recordMetadata("GitSHA", BuildConstants.GIT_SHA);
-    SmartDashboard.putString("GitSHA", BuildConstants.GIT_SHA);
+    SmartDashboard.putString("Metadata/GitSHA", BuildConstants.GIT_SHA);
     Logger.getInstance().recordMetadata("GitDate", BuildConstants.GIT_DATE);
-    SmartDashboard.putString("GitDate", BuildConstants.GIT_DATE);
+    SmartDashboard.putString("Metadata/GitDate", BuildConstants.GIT_DATE);
     Logger.getInstance().recordMetadata("GitBranch", BuildConstants.GIT_BRANCH);
-    SmartDashboard.putString("GitBranch", BuildConstants.GIT_BRANCH);
+    SmartDashboard.putString("Metadata/GitBranch", BuildConstants.GIT_BRANCH);
     switch (BuildConstants.DIRTY) {
       case 0:
         Logger.getInstance().recordMetadata("GitDirty", "All changes committed");
-        SmartDashboard.putString("GitDirty", "All changes committed");
+        SmartDashboard.putString("Metadata/GitDirty", "All changes committed");
         break;
       case 1:
         Logger.getInstance().recordMetadata("GitDirty", "Uncomitted changes");
-        SmartDashboard.putString("GitDirty", "Uncomitted changes");
+        SmartDashboard.putString("Metadata/GitDirty", "Uncomitted changes");
         break;
       default:
         Logger.getInstance().recordMetadata("GitDirty", "Unknown");
-        SmartDashboard.putString("GitDirty", "Unknown");
+        SmartDashboard.putString("Metadata/GitDirty", "Unknown");
         break;
     }
 
-    switch (DriveConstants.currentMode) {
-      // Running on a real robot, log to a USB stick
-      case REAL:
+    switch ((String) m_constants.getProperty("currentMode")) {
+      // Running on a real robot
+      case "REAL":
       Logger.getInstance().addDataReceiver(new WPILOGWriter("/home/lvuser"));
       Logger.getInstance().addDataReceiver(new NT4Publisher());
         break;
 
       // Running a physics simulator, log to local folder
-      case SIM:
-      Logger.getInstance().addDataReceiver(new WPILOGWriter(""));
+      case "SIM":
+      Logger.getInstance().addDataReceiver(new WPILOGWriter("./Logs"));
       Logger.getInstance().addDataReceiver(new NT4Publisher());
         break;
 
       // Replaying a log, set up replay source
-      case REPLAY:
+      case "REPLAY":
         setUseTiming(false); // Run as fast as possible
         String logPath = LogFileUtil.findReplayLog();
         Logger.getInstance().setReplaySource(new WPILOGReader(logPath));
@@ -114,7 +116,8 @@ public class Robot extends LoggedRobot {
   /** This function is called once each time the robot enters Disabled mode. */
   @Override
   public void disabledInit() {
-
+    
+    m_robotContainer.onDisable();
    
   }
 

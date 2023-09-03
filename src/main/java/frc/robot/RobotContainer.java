@@ -7,12 +7,12 @@ package frc.robot;
 
 
 
+import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.XboxController;
 
 import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.Constants.DriveConstants;
-import frc.robot.Constants.OIConstants;
+
 import frc.robot.subsystems.drive.DifferentialDriveSubsystem;
 import frc.robot.subsystems.drive.DriveIO;
 import frc.robot.subsystems.drive.DriveIOCim;
@@ -23,8 +23,10 @@ import frc.robot.subsystems.pneumatics.PneumaticsIOReal;
 import frc.robot.subsystems.pneumatics.PneumaticsIOSim;
 import frc.robot.subsystems.simulation.FieldSim;
 import utils.ExtendedXboxController;
+import utils.LoggedTunableNumber;
 import frc.robot.commands.ShootCommand;
 
+import frc.robot.config.YAMLDataHolder;
 import edu.wpi.first.wpilibj2.command.Command;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -52,14 +54,17 @@ public class RobotContainer {
   private final DifferentialDriveSubsystem m_robotDrive;
   private final FieldSim m_fieldSim;
   private final Pneumatics m_Pneumatics;
+  private YAMLDataHolder m_constants = new YAMLDataHolder();
  
 
   Command shootshirt;
   
   // The driver's controller
-  ExtendedXboxController m_driverController = new ExtendedXboxController(OIConstants.kDriverControllerPort);
-  ExtendedXboxController m_driverController2 = new ExtendedXboxController(OIConstants.kDriverControllerPort);
+ 
 
+  LoggedTunableNumber kDriverControllerPort = new LoggedTunableNumber("kDriverControllerPort", (int)m_constants.getProperty("kDriverControllerPort"));
+ 
+ ExtendedXboxController m_driverController = new ExtendedXboxController((int)kDriverControllerPort.get());
   
 
   JoystickButton rightBumper = new JoystickButton(m_driverController, Button.kRightBumper.value);
@@ -74,9 +79,21 @@ public class RobotContainer {
    */
   public RobotContainer() {
     
-    switch (DriveConstants.currentMode) {
+   
+
+   
+    
+     m_constants.init();
+
+      
+
+     
+      
+    switch ((String)m_constants.getProperty("currentMode")) {
+
+      
       // Real robot, instantiate hardware IO implementations
-      case REAL:
+      case "REAL":
         m_robotDrive = new DifferentialDriveSubsystem(new DriveIOCim());
         m_fieldSim = new FieldSim(m_robotDrive);
         m_Pneumatics = new Pneumatics(new PneumaticsIOReal(),m_driverController);
@@ -88,7 +105,7 @@ public class RobotContainer {
         break;
 
       // Sim robot, instantiate physics sim IO implementations
-      case SIM:
+      case "SIM":
       m_robotDrive  = new DifferentialDriveSubsystem(new DriveIOSim());
       m_fieldSim = new FieldSim(m_robotDrive);
       m_Pneumatics = new Pneumatics(new PneumaticsIOSim(),m_driverController);
@@ -106,10 +123,12 @@ public class RobotContainer {
         shootshirt = new ShootCommand(m_Pneumatics);
        
         break;
+
+         
     }
  
 
-    SmartDashboard.putData("Reset Solenoid Array",new InstantCommand(m_Pneumatics::ResetShootArray, m_Pneumatics));
+    SmartDashboard.putData("Shooter/Reset Solenoid Array",new InstantCommand(m_Pneumatics::ResetShootArray, m_Pneumatics));
     
      
       
@@ -142,16 +161,23 @@ public class RobotContainer {
   
 
   
-  /**
-   * Use this to pass the autonomous command to the main {@link Robot} class.
-   *
-   * @return the command to run in autonomous
-   */
- 
+  public void onDisable(){
 
- 
+
+    m_constants.saveData();
+  }
 
   public void periodic(){
+
+    m_constants.periodic();
+    
+    if(kDriverControllerPort.hasChanged(hashCode())) {
+      m_driverController = new ExtendedXboxController((int)kDriverControllerPort.get());
+
+      m_Pneumatics.setXboxController(m_driverController);
+    }
+
+
     //Updates the trigger values
     m_driverController.periodic();
     // Checks if it can shoot
@@ -160,5 +186,12 @@ public class RobotContainer {
     }
 
     m_fieldSim.periodic();
+
+    
+    
+    
+
+    
+    
   }
 }

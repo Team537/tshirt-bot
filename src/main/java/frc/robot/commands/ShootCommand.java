@@ -7,24 +7,30 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
-import frc.robot.Constants.ShootCommandConsants;
+
+import frc.robot.config.YAMLDataHolder;
 import frc.robot.subsystems.pneumatics.Pneumatics;
+import utils.LoggedTunableNumber;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class ShootCommand extends SequentialCommandGroup {
+  private YAMLDataHolder m_constants = new YAMLDataHolder();
+  private LoggedTunableNumber SECONDS = new LoggedTunableNumber("SECONDS",(int) m_constants.getProperty("SECONDS"));
+ 
   /** Creates a new shoot. */
   public ShootCommand(Pneumatics tShirtSolenoid) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
+    
     addCommands( 
     new InstantCommand(tShirtSolenoid::resetCooldownReady, tShirtSolenoid),
     new InstantCommand(tShirtSolenoid::OpenValve, tShirtSolenoid),
     // Wait Command keeps the valve open for a predetermined amount of time
-    new WaitCommand(ShootCommandConsants.SECONDS),
+    new TunableWaitCommand(SECONDS),
     new InstantCommand(tShirtSolenoid::CloseValve, tShirtSolenoid),
-    new WaitCommand(ShootCommandConsants.SECONDS),
+    new TunableWaitCommand(SECONDS),
     new InstantCommand(tShirtSolenoid::cooldownReady, tShirtSolenoid));
     
   }

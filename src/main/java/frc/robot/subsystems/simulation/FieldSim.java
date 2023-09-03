@@ -64,7 +64,7 @@ public class FieldSim {
     if (RobotBase.isSimulation())
       simulationPeriodic();
 
-    SmartDashboard.putData("Field2d", m_field2d);
+    SmartDashboard.putData("Drive/Field2d", m_field2d);
   }
 
   public void simulationPeriodic() {
