@@ -70,14 +70,14 @@ if(m_tShirtSolenoid1Channel1.hasChanged(hashCode()) ||
 
     pneumaticHub = new PneumaticHub((int) MODULE_NUMBER.get()); 
 
-    SolenoidList[0] = new Solenoid(PneumaticsModuleType.CTREPCM, (int) m_tShirtSolenoid1Channel1.get());
-    SolenoidList[1] = new Solenoid(PneumaticsModuleType.CTREPCM, (int) m_tShirtSolenoid2Channel2.get());
-    SolenoidList[2] = new Solenoid(PneumaticsModuleType.CTREPCM, (int) m_tShirtSolenoid3Channel3.get());
-    SolenoidList[3] = new Solenoid(PneumaticsModuleType.CTREPCM, (int) m_tShirtSolenoid4Channel4.get());
-    SolenoidList[4] = new Solenoid(PneumaticsModuleType.CTREPCM, (int) m_tShirtSolenoid5Channel5.get());
-    SolenoidList[5] = new Solenoid(PneumaticsModuleType.CTREPCM, (int) m_tShirtSolenoid6Channel6.get());
-    SolenoidList[6] = new Solenoid(PneumaticsModuleType.CTREPCM, (int) m_tShirtSolenoid7Channel7.get());
-    SolenoidList[7] = new Solenoid(PneumaticsModuleType.CTREPCM, (int) m_tShirtSolenoid8Channel8.get());
+    // SolenoidList[0] = new Solenoid(PneumaticsModuleType.CTREPCM, (int) m_tShirtSolenoid1Channel1.get());
+    // SolenoidList[1] = new Solenoid(PneumaticsModuleType.CTREPCM, (int) m_tShirtSolenoid2Channel2.get());
+    // SolenoidList[2] = new Solenoid(PneumaticsModuleType.CTREPCM, (int) m_tShirtSolenoid3Channel3.get());
+    // SolenoidList[3] = new Solenoid(PneumaticsModuleType.CTREPCM, (int) m_tShirtSolenoid4Channel4.get());
+    // SolenoidList[4] = new Solenoid(PneumaticsModuleType.CTREPCM, (int) m_tShirtSolenoid5Channel5.get());
+    // SolenoidList[5] = new Solenoid(PneumaticsModuleType.CTREPCM, (int) m_tShirtSolenoid6Channel6.get());
+    // SolenoidList[6] = new Solenoid(PneumaticsModuleType.CTREPCM, (int) m_tShirtSolenoid7Channel7.get());
+    // SolenoidList[7] = new Solenoid(PneumaticsModuleType.CTREPCM, (int) m_tShirtSolenoid8Channel8.get());
 }
 
 

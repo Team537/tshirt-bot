@@ -70,7 +70,7 @@ public class LoggedTunableNumber {
    * @return The current value
    */
   public double get() {
-    
+      
     if (!hasDefault) {
       return 0.0;
     } else {

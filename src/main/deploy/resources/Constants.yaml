@@ -1,4 +1,4 @@
-{currentMode: SIM, tuningMode: true, kFrontLeft: 11, kRearLeft: 13, kFrontRight: 1,
+{currentMode: REAL, tuningMode: true, kFrontLeft: 11, kRearLeft: 13, kFrontRight: 1,
   kRearRight: 3, kTrackwidthMeters: 0.8509, wheelRadius: 0.0762, kEncoderCPR: 2048,
   kWheelDiameterMeters: 0.1524, MODULE_NUMBER: 1, T_SHIRT_SOLENOID_1_CHANNEL: 0, T_SHIRT_SOLENOID_2_CHANNEL: 1,
   T_SHIRT_SOLENOID_3_CHANNEL: 2, T_SHIRT_SOLENOID_4_CHANNEL: 3, T_SHIRT_SOLENOID_5_CHANNEL: 4,
