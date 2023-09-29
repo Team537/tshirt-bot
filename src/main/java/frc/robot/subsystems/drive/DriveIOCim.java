@@ -46,7 +46,7 @@ public class DriveIOCim implements DriveIO {
     leftFollower.follow(leftLeader);
     rightFollower.follow(rightLeader);
     leftLeader.setInverted(false);
-    rightLeader.setInverted(true);
+    rightLeader.setInverted(false);
     leftFollower.setInverted(InvertType.FollowMaster);
     rightFollower.setInverted(InvertType.FollowMaster);
 
@@ -74,7 +74,16 @@ public class DriveIOCim implements DriveIO {
 
   @Override
   public void setVoltage(double leftVolts, double rightVolts) {
-    leftLeader.set(ControlMode.PercentOutput, leftVolts / 12.0);
-    rightLeader.set(ControlMode.PercentOutput, rightVolts / 12.0);
+    // 9/28/2023 deadband added
+    leftVolts /= 12.0;
+    rightVolts /= 12.0;
+    if (-0.01 < rightVolts && rightVolts < 0.01) {
+      rightVolts = 0;
+    }
+    if (-0.01 < leftVolts && leftVolts < 0.01) {
+      leftVolts = 0;
+    }
+    leftLeader.set(ControlMode.PercentOutput, leftVolts);
+    rightLeader.set(ControlMode.PercentOutput, rightVolts);
   }
 }

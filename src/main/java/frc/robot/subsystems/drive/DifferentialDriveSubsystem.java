@@ -51,7 +51,21 @@ public class DifferentialDriveSubsystem extends SubsystemBase {
   /** Run open loop based on stick positions. */
   public void driveArcade(double xSpeed, double zRotation) {
     var speeds = DifferentialDrive.arcadeDriveIK(xSpeed, zRotation*0.5, true);
-    io.setVoltage(speeds.left * 12.0, speeds.right * 12.0);
+    // 9/28/2023 - Tyler noted right side drive was inverted and moving backwards when ordered forward
+    // Logan Changed: Multiply right by negative 1 to invert right side speed to be correct.
+    // used System.out.println(""); to test
+
+    // during testing i also noticed that small values (-0.01 < x < 0.01) were also inputted into the
+    // wheels, indicating no deadband.
+
+    // After some more digging, i found where the right motors were indicated to be inverted in 
+    // DriveIOCim.java. (around line 49) I am changing the inversion of the right motors from 
+    // true to false, and  commenting out my previous change, not removing it incase i need it later.
+
+    // speeds.right *= -1;
+    // System.out.println("RIGHT: " +speeds.right+ ">>>>>>LEFT: " + speeds.left);
+    io.setVoltage(speeds.left * 12.0, -speeds.right * 12.0);
+    
   }
 
   /** Stops the drive. */
