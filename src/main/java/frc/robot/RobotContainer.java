@@ -13,6 +13,10 @@ import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
+import frc.robot.subsystems.actuator.Actuator;
+import frc.robot.subsystems.actuator.ActuatorIO;
+import frc.robot.subsystems.actuator.ActuatorIOReal;
+import frc.robot.subsystems.actuator.ActuatorIOSim;
 import frc.robot.subsystems.drive.DifferentialDriveSubsystem;
 import frc.robot.subsystems.drive.DriveIO;
 import frc.robot.subsystems.drive.DriveIOCim;
@@ -30,7 +34,9 @@ import edu.wpi.first.wpilibj2.command.Command;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.POVButton;
 
 
 
@@ -51,6 +57,7 @@ public class RobotContainer {
   // private final DriveSubsystem m_robotDrive = new DriveSubsystem();
   
   private final DifferentialDriveSubsystem m_robotDrive;
+  private final Actuator m_actuator;
   private final FieldSim m_fieldSim;
   private final Pneumatics m_Pneumatics;
   private final LED m_LED = new LED();
@@ -71,6 +78,9 @@ public class RobotContainer {
   JoystickButton xButton = new JoystickButton(m_driverController, Button.kX.value);
   JoystickButton yButton = new JoystickButton(m_driverController, Button.kY.value);
 
+  POVButton dpadUp = new POVButton(m_driverController, 0);
+  POVButton dpadDown = new POVButton(m_driverController, 180);
+
   int rightTriggerState = 0; // 0 is off, 1 is on press, 2 is being held.  
   int leftTriggerState = 0; // 0 is off, 1 is on press, 2 is being held.  
   
@@ -84,9 +94,11 @@ public class RobotContainer {
       // Real robot, instantiate hardware IO implementations
       case REAL:
         m_robotDrive = new DifferentialDriveSubsystem(new DriveIOCim());
+        m_actuator  = new Actuator(new ActuatorIOReal());
         m_fieldSim = new FieldSim(m_robotDrive);
         m_Pneumatics = new Pneumatics(new PneumaticsIOReal(),m_driverController);
         shootshirt = new ShootCommand(m_Pneumatics);
+
        
        
         // drive = new Drive(new DriveIOFalcon500());
@@ -96,6 +108,7 @@ public class RobotContainer {
       // Sim robot, instantiate physics sim IO implementations
       case SIM:
       m_robotDrive  = new DifferentialDriveSubsystem(new DriveIOSim());
+      m_actuator  = new Actuator(new ActuatorIOSim());
       m_fieldSim = new FieldSim(m_robotDrive);
       m_Pneumatics = new Pneumatics(new PneumaticsIOSim(),m_driverController);
       shootshirt = new ShootCommand(m_Pneumatics);
@@ -107,6 +120,7 @@ public class RobotContainer {
       default:
       m_robotDrive  =  new DifferentialDriveSubsystem(new DriveIO() {
         });
+        m_actuator  = new Actuator(new ActuatorIO(){});
         m_Pneumatics = new Pneumatics(new PneumaticsIO(){},m_driverController);
         m_fieldSim = new FieldSim(m_robotDrive);
         shootshirt = new ShootCommand(m_Pneumatics);
@@ -116,7 +130,10 @@ public class RobotContainer {
 
     xButton.onTrue(new InstantCommand(m_LED::FancyRainbow, m_LED));
     yButton.onTrue(new InstantCommand(m_LED::FancyConfetti, m_LED));
- 
+
+    dpadUp.whileTrue(new StartEndCommand(m_actuator::actuateUp, m_actuator::stop, m_actuator));
+    dpadDown.whileTrue(new StartEndCommand(m_actuator::actuateDown, m_actuator::stop, m_actuator));
+  
 
     SmartDashboard.putData("Reset Solenoid Array",new InstantCommand(m_Pneumatics::ResetShootArray, m_Pneumatics));
     

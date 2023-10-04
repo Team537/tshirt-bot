@@ -19,7 +19,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Pneumatics extends SubsystemBase {
  
-  private Servo
+  
   private PneumaticsIO pneumaticsIO;
   private PneumaticsIOInputsAutoLogged pneumaticsIOInputsAutoLogged = new PneumaticsIOInputsAutoLogged();
   private final Timer sincePressedTimer = new Timer();
@@ -39,9 +39,7 @@ public class Pneumatics extends SubsystemBase {
   /** Creates a new Pneumatics. */
   
 
-  private void startActuator(){
-
-  }
+  
   
   public boolean canShoot(){ // int leftTriggerState, int rightTriggerState
      
