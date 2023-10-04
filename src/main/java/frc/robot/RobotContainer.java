@@ -22,6 +22,7 @@ import frc.robot.subsystems.pneumatics.PneumaticsIO;
 import frc.robot.subsystems.pneumatics.PneumaticsIOReal;
 import frc.robot.subsystems.pneumatics.PneumaticsIOSim;
 import frc.robot.subsystems.simulation.FieldSim;
+import frc.robot.LED;
 import utils.ExtendedXboxController;
 import frc.robot.commands.ShootCommand;
 
@@ -52,6 +53,7 @@ public class RobotContainer {
   private final DifferentialDriveSubsystem m_robotDrive;
   private final FieldSim m_fieldSim;
   private final Pneumatics m_Pneumatics;
+  private final LED m_LED = new LED();
  
 
   Command shootshirt;
@@ -62,8 +64,12 @@ public class RobotContainer {
 
   
 
+
   JoystickButton rightBumper = new JoystickButton(m_driverController, Button.kRightBumper.value);
   JoystickButton leftBumper = new JoystickButton(m_driverController, Button.kLeftBumper.value);
+
+  JoystickButton xButton = new JoystickButton(m_driverController, Button.kX.value);
+  JoystickButton yButton = new JoystickButton(m_driverController, Button.kY.value);
 
   int rightTriggerState = 0; // 0 is off, 1 is on press, 2 is being held.  
   int leftTriggerState = 0; // 0 is off, 1 is on press, 2 is being held.  
@@ -107,6 +113,9 @@ public class RobotContainer {
        
         break;
     }
+
+    xButton.onTrue(new InstantCommand(m_LED::FancyRainbow, m_LED));
+    yButton.onTrue(new InstantCommand(m_LED::FancyConfetti, m_LED));
  
 
     SmartDashboard.putData("Reset Solenoid Array",new InstantCommand(m_Pneumatics::ResetShootArray, m_Pneumatics));
@@ -119,7 +128,7 @@ public class RobotContainer {
       
     
   
-   
+        
         m_robotDrive.setDefaultCommand(
       
              new RunCommand(() -> m_robotDrive.driveArcade(-m_driverController.getLeftY(), -m_driverController.getLeftX()), m_robotDrive));

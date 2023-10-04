@@ -9,13 +9,17 @@ import utils.ExtendedXboxController;
 
 import org.littletonrobotics.junction.Logger;
 
+import edu.wpi.first.math.system.plant.DCMotor;
+import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Pneumatics extends SubsystemBase {
-  
+ 
+  private Servo
   private PneumaticsIO pneumaticsIO;
   private PneumaticsIOInputsAutoLogged pneumaticsIOInputsAutoLogged = new PneumaticsIOInputsAutoLogged();
   private final Timer sincePressedTimer = new Timer();
@@ -35,7 +39,9 @@ public class Pneumatics extends SubsystemBase {
   /** Creates a new Pneumatics. */
   
 
+  private void startActuator(){
 
+  }
   
   public boolean canShoot(){ // int leftTriggerState, int rightTriggerState
      
