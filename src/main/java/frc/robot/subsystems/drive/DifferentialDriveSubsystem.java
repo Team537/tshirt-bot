@@ -42,7 +42,7 @@ public class DifferentialDriveSubsystem extends SubsystemBase {
   /** Run open loop based on stick positions. */
   public void driveArcade(double xSpeed, double zRotation) {
     var speeds = DifferentialDrive.arcadeDriveIK(xSpeed, zRotation*0.5, true);
-    io.setVoltage(speeds.left * 12.0, speeds.right * 12.0);
+    io.setVoltage(speeds.left * 12.0, -speeds.right * 12.0);
   }
 
   /** Stops the drive. */
